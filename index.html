@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>خدام القرآن الكريم — ميثاق تعلُّم القرآن الكريم وتعليمه</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-ivory: #f6f2e8;
+      --bg-surface: #fffdf9;
+      --emerald-deep: #063527;
+      --emerald-mid: #0d4e3b;
+      --gold-accent: #b58934;
+      --gold-light: #e2c177;
+      --gold-tint: rgba(181, 137, 52, 0.12);
+      --text-ink: #17221d;
+      --text-soft: #54635d;
+      --border-line: #e4dac4;
+      --shadow-soft: 0 24px 60px rgba(6, 53, 39, 0.09);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans Arabic', sans-serif;
+      background-color: var(--bg-ivory);
+      color: var(--text-ink);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* خلفية إسلامية عصرية أنيقة ومريحة للعين */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 10% 12%, rgba(181, 137, 52, 0.11) 0, transparent 38%),
+        radial-gradient(circle at 90% 88%, rgba(6, 53, 39, 0.09) 0, transparent 42%),
+        repeating-linear-gradient(
+          60deg,
+          rgba(181, 137, 52, 0.035) 0px,
+          rgba(181, 137, 52, 0.035) 1px,
+          transparent 1px,
+          transparent 32px
+        ),
+        repeating-linear-gradient(
+          -60deg,
+          rgba(6, 53, 39, 0.03) 0px,
+          rgba(6, 53, 39, 0.03) 1px,
+          transparent 1px,
+          transparent 32px
+        );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .chat-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 960px;
+      height: 90vh;
+      min-height: 640px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-line);
+      border-radius: 26px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* رأس الواجهة */
+    .top-header {
+      background: linear-gradient(135deg, #052e22 0%, #0b4735 55%, #083b2c 100%);
+      color: #fffdf9;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      border-bottom: 2px solid rgba(226, 193, 119, 0.55);
+    }
+
+    .identity {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-box {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      background: #ffffff;
+      border: 1.5px solid var(--gold-light);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .logo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 3px;
+    }
+
+    .title-group .org-name {
+      font-family: 'Aref Ruqaa', serif;
+      font-size: 1.05rem;
+      color: var(--gold-light);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .title-group h1 {
+      font-family: 'Amiri', serif;
+      font-size: 1.52rem;
+      font-weight: 700;
+      color: #fffdf9;
+      line-height: 1.25;
+    }
+
+    .title-group .subtitle {
+      font-size: 0.82rem;
+      color: #dce8e3;
+      margin-top: 3px;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fffdf9;
+      border: 1px solid rgba(226, 193, 119, 0.35);
+      padding: 8px 13px;
+      border-radius: 11px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .action-btn:hover {
+      background: rgba(226, 193, 119, 0.22);
+      border-color: var(--gold-light);
+    }
+
+    /* شريط المحاور والأسئلة السريعة */
+    .quick-bar {
+      padding: 11px 24px;
+      background: #faf6ec;
+      border-bottom: 1px solid var(--border-line);
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .topic-pill {
+      background: #ffffff;
+      color: var(--emerald-deep);
+      border: 1px solid #dfd4bc;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .topic-pill:hover {
+      background: var(--gold-tint);
+      border-color: var(--gold-accent);
+    }
+
+    /* منطقة الحوار */
+    .messages-area {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      scroll-behavior: smooth;
+    }
+
+    .bubble {
+      max-width: 83%;
+      padding: 16px 20px;
+      border-radius: 18px;
+      line-height: 1.88;
+      font-size: 0.96rem;
+      animation: appear 0.25s ease;
+      white-space: pre-line;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .bubble.bot {
+      align-self: flex-start;
+      background: #ffffff;
+      border: 1px solid var(--border-line);
+      border-top-right-radius: 4px;
+      box-shadow: 0 5px 16px rgba(6, 53, 39, 0.04);
+    }
+
+    .bubble.bot .author {
+      font-family: 'Amiri', serif;
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--gold-accent);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .bubble.user {
+      align-self: flex-end;
+      background: var(--emerald-deep);
+      color: #fffdf9;
+      border-top-left-radius: 4px;
+    }
+
+    /* صندوق الإدخال */
+    .input-bar {
+      padding: 15px 24px 20px;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-line);
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+    }
+
+    textarea {
+      flex: 1;
+      resize: none;
+      min-height: 48px;
+      max-height: 130px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid #d6cbb2;
+      background: #fdfbf7;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--text-ink);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    textarea:focus {
+      border-color: var(--gold-accent);
+      box-shadow: 0 0 0 3px rgba(181, 137, 52, 0.14);
+    }
+
+    .send-btn {
+      background: var(--emerald-deep);
+      color: #fffdf9;
+      border: none;
+      height: 48px;
+      padding: 0 24px;
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+      flex-shrink: 0;
+    }
+
+    .send-btn:hover {
+      background: var(--emerald-mid);
+    }
+
+    .send-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* نافذة إعداد الربط الذكي */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 24, 19, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 20;
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 460px;
+      background: #fffdf9;
+      border: 1px solid var(--border-line);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-card h2 {
+      font-family: 'Amiri', serif;
+      font-size: 1.35rem;
+      color: var(--emerald-deep);
+      margin-bottom: 8px;
+    }
+
+    .modal-card p {
+      font-size: 0.86rem;
+      color: var(--text-soft);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .modal-card input {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid #d4c8ae;
+      font-family: inherit;
+      font-size: 0.9rem;
+      margin-bottom: 14px;
+      outline: none;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    @media (max-width: 680px) {
+      .chat-container {
+        height: 94vh;
+        border-radius: 18px;
+      }
+      .logo-box {
+        width: 56px;
+        height: 56px;
+      }
+      .title-group h1 {
+        font-size: 1.18rem;
+      }
+      .bubble {
+        max-width: 92%;
+      }
+      .top-header {
+        padding: 14px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <header class="top-header">
+      <div class="identity">
+        <div class="logo-box">
+          <input type="file" id="logoUploader" accept="image/*" hidden />
+          <img
+            id="logoImg"
+            src="khodam-quran-logo.png"
+            alt="خدام القرآن الكريم"
+            onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='block';"
+          />
+          <svg id="logoFallback" style="display:none; width:46px; height:46px;" viewBox="0 0 100 100" fill="none">
+            <path d="M50 8C53 13 55 18 50 23C45 18 47 13 50 8Z" fill="#b58934"/>
+            <path d="M22 60C22 40 34 26 50 26C66 26 78 40 78 60H22Z" fill="#063527"/>
+            <path d="M12 72C26 62 40 62 50 70C60 62 74 62 88 72V82C74 74 60 74 50 80C40 74 26 74 12 82V72Z" fill="#b58934"/>
+          </svg>
+        </div>
+        <div class="title-group">
+          <span class="org-name">خدام القرآن الكريم</span>
+          <h1>ميثاق تعلُّم القرآن الكريم وتعليمه</h1>
+          <p class="subtitle">مرجع علمي ومنهجي في التلقي والأداء والإجازة والتربية</p>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <button class="action-btn" onclick="document.getElementById('logoUploader').click()">اللوغو</button>
+        <button class="action-btn" onclick="openApiModal()">ربط ذكي</button>
+        <button class="action-btn" onclick="clearChat()">محادثة جديدة</button>
+      </div>
+    </header>
+
+    <div class="quick-bar">
+      <button class="topic-pill" onclick="askPreset('ما دواعي وضع ميثاق تعلم القرآن الكريم وتعليمه؟')">دواعي وضع الميثاق</button>
+      <button class="topic-pill" onclick="askPreset('ما أبرز المعالم في تعلم القرآن وتعليمه؟')">معالم التعلم والتعليم</button>
+      <button class="topic-pill" onclick="askPreset('ما منهاج التلقي والأداء وتعلم النساء للقرآن؟')">منهاج التلقي والأداء</button>
+      <button class="topic-pill" onclick="askPreset('ما ضوابط القراءات القرآنية والإجازة فيها؟')">القراءات والإجازة</button>
+      <button class="topic-pill" onclick="askPreset('ما اختيارات الميثاق في الرواية والوقف والرسم والراء؟')">الاختيارات والأداء</button>
+      <button class="topic-pill" onclick="askPreset('ما موقف الميثاق من التفرغ للحفظ والتربية والمسؤوليات؟')">المقتضيات والتوازن</button>
+    </div>
+
+    <main id="messagesArea" class="messages-area">
+      <div class="bubble bot">
+        <span class="author">خادم الميثاق</span>
+        أهلاً بك. يسعدني أن أكون عوناً لك في استجلاء مضامين «ميثاق تعلم القرآن الكريم وتعليمه» بدقة واتزان. اطرح سؤالك بأريحية، وسأجيبك بما يوافق أصل الميثاق ويلائم سؤالك، ولك أن تواصل السؤال متى شئت.
+      </div>
+    </main>
+
+    <form class="input-bar" onsubmit="handleFormSubmit(event)">
+      <textarea
+        id="questionInput"
+        placeholder="اكتب سؤالك حول ميثاق تعلم القرآن الكريم وتعليمه..."
+        onkeydown="handleKey(event)"
+      ></textarea>
+      <button type="submit" class="send-btn">إرسال</button>
+    </form>
+  </div>
+
+  <!-- نافذة ربط مفتاح الذكاء الاصطناعي الاختياري -->
+  <div id="apiModal" class="modal-backdrop">
+    <div class="modal-card">
+      <h2>الربط الذكي الحر (اختياري)</h2>
+      <p>
+        يعمل البوت فوراً من نص الميثاق الكامل دون أي إعداد. وإن أردت ربطه بمحرك Gemini للإجابة الحرة على أي صياغة سؤال، فأدخل مفتاح API هنا وسيُحفظ محلياً في متصفحك.
+      </p>
+      <input type="password" id="apiKeyInput" placeholder="الصق مفتاح Gemini API هنا..." />
+      <div class="modal-actions">
+        <button class="action-btn" style="color:#17221d; border-color:#d4c8ae;" onclick="closeApiModal()">إغلاق</button>
+        <button class="send-btn" style="height:38px; padding:0 18px; font-size:0.85rem;" onclick="saveApiKey()">حفظ</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const MITHAQ_TEXT = `
+ميثاق تعلم القرآن الكريم وتعليمه: اتفاق جماعي على طرائق التعلم والتعليم للقرآن الكريم وقراءاته المرضية، المنسجمة مع منهاج العدل والإحسان؛ حيث للقرآن مركزية في المرجعية والتصور والعمل والحركة، ومع الاعتصام الجامع يصبح القرآن بحرفه وأحكامه ونوره قبلة الأرواح وضياء الدنيا والآخرة ومخرجاً من الفتنة.
+
+أولا: دواعي وضع ميثاق لتعلم القرآن الكريم وتعليمه:
+1- كثرة طرائق التلقي للقرآن الكريم وأدائه وإقراء حروفه دون العمل على تقويمها وتهذيبها.
+2- توجيه العناية إلى حفظ القرآن الكريم دون تمثل قواعد تجويد القراءة بحجة أن الحفظ هو المقصد، وإنما التجويد تحسين وتكميل.
+3- اضطراب منهاج الإجازة في القرآن الكريم وقراءاته، وتباين المجيزين بين المتساهل والمتشدد.
+4- جنوح مؤمنين ومؤمنات للتفرغ لحفظ القرآن الكريم على حساب التربية والدعوة وتحمل المسؤوليات التنظيمية.
+
+ثانيا: معالم في تعلم القرآن الكريم وتعليمه:
+1- التعلم والتعليم صحبة ولزوم واتباع: أخذ الصحابة عن النبي صلى الله عليه وسلم كأبي بن كعب وابن مسعود وأبي موسى الأشعري، ثم التابعون والقراء العشرة بالصحبة وملازمة السابق والصبر والتأدب وتوقير الشيوخ؛ القراءة سنة متبعة تؤخذ من أفواه الرجال ولا مدخل للقياس فيها.
+2- تعلم القرآن لا ينفك عن تعليم الإيمان والإسلام والإيقان: حديث جندب أنهم تعلموا الإيمان قبل القرآن ثم ازدادوا به إيماناً، ونزول جبريل لتعليم القرآن والدين (إسلام وإيمان وإحسان)، وتعلم اليقين كالقرآن، والرباطات التي تجمع بين القرآن والإيمان وأركان الإسلام.
+3- تعلم القرآن وتعليمه مورثان للعلم والعمل: أثر أبي عبد الرحمن السلمي في تعلم عشر آيات وفهم ما فيها من العلم والعمل قبل تجاوزها.
+4- التحلي بأخلاق القرآن للمعلم والمتعلم: التقلل من الدنيا والزهد، والسخاء والصبر والحلم وطلاقة الوجه، والتواضع والرفق والرحمة، وأثر ابن مسعود في صفات حامل القرآن، والحذر من تلاوة يلعنها القرآن أو رياء السمعة، وألا يحجب الحفظ والتجويد والقراءات عن العمل والوقوف عند الحدود.
+
+ثالثا: منهاج التلقي والأداء للقرآن الكريم:
+1- التيسير في التلقين والأداء والتجويد: تسهيل القراءة والإقراء والحفظ والأداء وفهم المعاني للاتعاظ والاعتبار دون مناقضة الإتقان، مع التدرج في الظواهر الصوتية الصعبة كالاختلاس والإشمام والروم.
+2- الحذر من التنطع في تجويد الحروف على حساب التدبر والخشوع (نقول الغزالي وأبي شامة)، مع تنبيه اللاحن بحكمة لأن اللحن قد يؤثر في صحة العبادة كما في تمييز الضاد من الظاء في الفاتحة.
+3- الحفظ المتقن وتجويد القراءة مرمى المؤمن والمؤمنة، فلا حفظ متقن دون أداء حسن (ورتلناه ترتيلاً، ورتل القرآن ترتيلاً، ومقدمة ابن الجزري).
+4- تلقي القرآن والقراءات عن أهله الضابطين مشافهة هو الأصل، ووسائل التواصل مساعدة.
+5- انفتاح المتعلم والمعلم على العلوم النافعة: الفقه، التفسير، اللغة، النحو والصرف، ورسم المصاحف (المقطوع والموصول، التاء والهاء، الزوائد).
+6- تعلم القرآن وقراءاته وتعليمهما للرجال والنساء لعموم «خيركم من تعلم القرآن وعلمه»؛ وتتعلم المرأة على نساء مثلها أو محارمها، وإن لم تجد وتاقت لتلقي الروايات والقراءات فلها أن تتلقى على شيوخ رجال مهرة وتجاز بحضرة جماعة وبآداب الشرع وألا تكون متبرجة أو خاضعة بالقول، ومع المحرم عند الانفراد، وأن يكون الشيخ متزوجاً ثقة معروفاً بالدين والصيانة والحفظ والأمانة؛ وللمرأة تدريس القرآن والتجويد للذكور في المراكز والجمعيات والمعاهد والمدارس مع الآداب الشرعية.
+7- العمل بكل الطرق والآليات والمناهج الموصلة إلى حفظ القرآن وترتيله بإتقان.
+
+رابعا: منهاج تعلم القراءات القرآنية وتعليمها والإجازة فيها:
+1- تعلم القراءات وتعليمها فرض على الكفاية لحفظ التواتر، وتوجيه العناية بعد الحفظ والتجويد إلى اللغة والفقه ونحوهما، بينما يترك التعمق في التحريرات وحفظ العشر النافعية وشواذ القراءات لأحاد المتخصصين الجامعين للرواية والدراية.
+2- الحفظ المتقن والأداء الجيد لحروف القرآن وآيه شرطان أساسيان لتعلم القراءات.
+3- الإجازات وأسانيد القراءات يُسعى إليها دون أن تكون غاية المقرئ المحسن.
+4- الإجازة في القرآن الكريم كاملاً برواية أو روايات أو قراءة أو قراءات بشروطها المعتمدة؛ أما الإجازة في سورة أو سور أو آيات فاضلة فهي من قبيل الإجازة التبركية.
+5- الأخذ من مناهج المقرئين في الإقراء والإجازة مع ما ينسجم مع السلوك العام.
+
+خامسا: اختيارات في القراءة والأداء:
+1- الاعتماد في الحفظ والتجويد وإمامة الصلاة على الرواية المقروء بها في البلد، كرواية ورش عن نافع من طريق الأزرق في المغرب.
+2- اختيار وقف الإمام الهبطي في الحفظ والأداء مع تجنب بعض وقوفه المرجوحة (مثل الوقف على «يشعركم» في سورة الأنعام لمن قرأ بفتح همزة «أنها»، والوقف على «عم» في النبأ).
+3- اختيار ما جرى به العمل عند المغاربة في مصاحفهم رسماً وضبطاً وعداً.
+4- اختيار الآراء الراجحة في الأداء والأخذ بما جرى به العمل في الرواية المعتمدة، وتجنب المذاهب الشاذة كترقيق راء «مريم» وتغليظ لام «فاختلط» ومذاهب التوقل الشاذة في الراء عند ورش.
+
+سادسا: مقتضيات عامة وتنبيهات:
+1- لا يُقال ولا يُتبنى الانشغال بحفظ القرآن عن يوم المؤمن وليلته والمجالس التربوية والتعليمية والتنظيمية ومجالس النصيحة والرباطات والاعتكافات.
+2- التفرغ لحفظ القرآن على حساب المهمات التربوية والدعوية والأسرية والمسؤوليات التنظيمية ومهام الشأن العام ليس من السلوك ولا منهاج العمل.
+3- المدارس القرآنية غنيمة للتلقي والأداء والإجازة، ولا يُلجأ إلى غيرها إلا بعد الاستشارة ووجود الداعي.
+4- الأصل استقلالية مدارس القرآن للمؤمنات عن مدارس المؤمنين.
+5- تأسيس مدارس القرآن الإقليمية وتحديد أنشطتها وبرمجتها وضبط متابعتها يتم بتشاور مع المؤسسات المعنية (أمانة الإقليم – مجلس إقليم المؤمنات والمؤمنين).
+6- تدبير مدارس التحفيظ العابرة للنطاقات الجغرافية يتم بتنسيق مع المؤسسات ذات الاختصاص.
+7- تنزيل أوراق تفصيلية من لجنة القرآن الكريم مؤمنين ومؤمنات حول كيفيات التعلم والتعليم والإجازة والتحقق من الحفظ والأداء وتحسين التلاوة.
+8- تكليف الهيئة العامة للتربية والدعوة والهيئة العامة للعمل النسائي بتنزيل مقتضيات الميثاق.
+9- سريان مضامين الميثاق في المجالس التربوية والتعليمية والمدارس القرآنية ومحاضن الإقراء والتجويد.
+10- تم التصديق على الميثاق والإشهاد عليه يوم الأحد 22 أكتوبر 2023، ويبدأ العمل به من يومه.
+`;
+
+    const SYSTEM_INSTRUCTION = `أنت «خادم الميثاق»، مساعد علمي ومنهجي خبير بـ «ميثاق تعلم القرآن الكريم وتعليمه» المصدّق عليه يوم الأحد 22 أكتوبر 2023.
+أجب بدقة ووقار العالم الضليع، وبميزان «شافٍ كافٍ» (بين الإيجاز المُخل والإطالة المُملّة)، متكيّفاً مع أسلوب السائل ومستواه، ومُلتزماً بنص الميثاق المرفق دون اختلاق أو نسبة ما لم يرد فيه، واختم غالباً بعبارة لطيفة تفتح الباب لمواصلة السؤال.
+
+نص الميثاق:
+${MITHAQ_TEXT}`;
+
+    const messagesArea = document.getElementById('messagesArea');
+    const questionInput = document.getElementById('questionInput');
+    const logoUploader = document.getElementById('logoUploader');
+    const logoImg = document.getElementById('logoImg');
+    const logoFallback = document.getElementById('logoFallback');
+    const apiModal = document.getElementById('apiModal');
+    const apiKeyInput = document.getElementById('apiKeyInput');
+
+    const savedLogo = localStorage.getItem('khodam_logo_data');
+    if (savedLogo) {
+      logoImg.src = savedLogo;
+      logoImg.style.display = 'block';
+      logoFallback.style.display = 'none';
+    }
+
+    logoUploader.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        logoImg.src = ev.target.result;
+        logoImg.style.display = 'block';
+        logoFallback.style.display = 'none';
+        localStorage.setItem('khodam_logo_data', ev.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function openApiModal() {
+      apiKeyInput.value = localStorage.getItem('khodam_gemini_key') || '';
+      apiModal.style.display = 'flex';
+    }
+
+    function closeApiModal() {
+      apiModal.style.display = 'none';
+    }
+
+    function saveApiKey() {
+      localStorage.setItem('khodam_gemini_key', apiKeyInput.value.trim());
+      closeApiModal();
+    }
+
+    const TOPIC_RESPONSES = [
+      {
+        keywords: ['دواعي', 'لماذا', 'سبب', 'وضع'],
+        answer: `بيّن الميثاق أن وضعه جاء لمعالجة أربعة أمور رئيسة:\n• كثرة طرائق التلقي والأداء وإقراء الحروف دون تقويم وتهذيب.\n• توجيه العناية إلى الحفظ دون تمثل قواعد التجويد باعتبار التجويد تحسيناً وتكميلاً.\n• اضطراب منهاج الإجازة وتباين المجيزين بين متساهل ومتشدد.\n• جنوح مؤمنين ومؤمنات للتفرغ للحفظ على حساب التربية والدعوة وتحمل المسؤوليات التنظيمية.\n\nهل تود تفصيلاً في نقطة بعينها من هذه الدواعي؟`
+      },
+      {
+        keywords: ['معالم', 'صحبة', 'إيمان', 'يقين', 'أخلاق', 'عمل'],
+        answer: `يقوم الميثاق على أربعة معالم متكاملة:\n• الصحبة واللزوم والاتباع والأدب مع الشيوخ؛ فالقراءة سنة متبعة تؤخذ بالمشافهة.\n• ارتباط تعلم القرآن بتعليم الإيمان والإسلام والإيقان، كما في حديث جندب والرباطات.\n• كونه مورثاً للعلم والعمل معاً، كما في تعلم عشر آيات وفهم علمها والعمل بها.\n• التحلي بأخلاق القرآن من التواضع والرفق والزهد والخشية، وألا يحجب الحفظ أو التجويد عن العمل والوقوف عند الحدود.\n\nأيّ هذه المعالم تحب أن نتوقف عنده أكثر؟`
+      },
+      {
+        keywords: ['نساء', 'مرأة', 'مؤمنات', 'تلقي', 'تيسير', 'تنطع', 'مشافهة', 'علوم'],
+        answer: `يقرر الميثاق التيسير في التلقين والأداء دون إخلال بالإتقان، ويحذر من التنطع في الحروف على حساب التدبر والخشوع مع تنبيه اللاحن بحكمة.\nكما يجعل المشافهة عن الضابطين أصلاً، ويفتح الباب للعلوم النافعة كالفقه واللغة ورسم المصحف.\nويؤكد أن تعلم القرآن وقراءاته وتعليمهما للرجال والنساء معاً؛ فتتعلم المرأة على نساء مثلها أو محارمها، وإن لم تجد وتاقت لتلقي الروايات والقراءات فلها التلقي على شيوخ رجال مهرة ثقات بحضرة جماعة وبآداب الشرع، ولها كذلك تدريس القرآن والتجويد للذكور في المراكز والمؤسسات مع استحضار الآداب الشرعية.\n\nهل لديك سؤال إضافي حول ضوابط التلقي أو تعليم النساء؟`
+      },
+      {
+        keywords: ['قراءات', 'إجازة', 'اجازة', 'سند', 'كفاية', 'تبركية'],
+        answer: `يعدّ الميثاق تعلم القراءات وتعليمها فرض كفاية لحفظ التواتر، ويشترط لها الحفظ المتقن والأداء الجيد لحروف القرآن وآيه، مع توجيه العناية بعد الحفظ والتجويد إلى اللغة والفقه ونحوهما، وترك التعمق في التحريرات والعشر النافعية وشواذ القراءات لأحاد المتخصصين.\nكما يُسعى للإجازة والأسانيد دون جعلها غاية المقرئ المحسن، وتكون الإجازة في القرآن كاملاً بالرواية أو القراءة بشروطها المعتمدة، بينما تُعدّ الإجازة في سورة أو سور أو آيات فاضلة من قبيل الإجازة التبركية.\n\nهل تود الاستفسار عن تفصيل آخر في منهاج القراءات والإجازة؟`
+      },
+      {
+        keywords: ['ورش', 'هبطي', 'وقف', 'اختيارات', 'مغاربة', 'رسم', 'راء', 'فاختلط', 'مريم'],
+        answer: `من اختيارات الميثاق في القراءة والأداء:\n• الاعتماد على الرواية المقروء بها في البلد، كرواية ورش عن نافع من طريق الأزرق في المغرب.\n• اختيار وقف الإمام الهبطي مع تجنب بعض وقوفه المرجوحة، كالوقف على «يشعركم» لمن قرأ بفتح همزة «أنها» والوقف على «عم».\n• الأخذ بما جرى به العمل عند المغاربة في مصاحفهم رسماً وضبطاً وعداً.\n• اختيار الآراء الراجحة في الأداء وتجنب المذاهب الشاذة كترقيق راء «مريم» وتغليظ لام «فاختلط» ومذاهب التوقل الشاذة.\n\nأتريد توضيحاً لأيّ من هذه الاختيارات؟`
+      },
+      {
+        keywords: ['تربية', 'دعوة', 'تفرغ', 'مسؤوليات', 'أسرية', 'تنظيمية', 'مدارس', 'تنبيهات', 'أكتوبر'],
+        answer: `ينبه الميثاق إلى أن الانشغال بحفظ القرآن أو التفرغ له على حساب اليوم والليلة والمجالس التربوية والتعليمية والتنظيمية والرباطات والاعتكافات أو المسؤوليات الأسرية والشأن العام ليس من سلوك الميثاق.\nكما يجعل المدارس القرآنية غنيمة للتلقي والأداء والإجازة مع استقلالية مدارس المؤمنات عن المؤمنين، وتنسيق تأسيسها وتدبيرها عبر المؤسسات المعنية، وقد صُدّق عليه يوم الأحد 22 أكتوبر 2023.\n\nهل تحب أن ننتقل إلى سؤال آخر من أبواب الميثاق؟`
+      }
+    ];
+
+    function localCharterAnswer(q) {
+      const clean = q.trim();
+      for (const item of TOPIC_RESPONSES) {
+        if (item.keywords.some(k => clean.includes(k))) {
+          return item.answer;
+        }
+      }
+      return `يؤكد «ميثاق تعلم القرآن الكريم وتعليمه» على التلقي بالمشافهة والصحبة والأدب مع الشيوخ، والجمع المتوازن بين الحفظ المتقن والتجويد والعمل والتربية، مع الالتزام بضوابط الإجازة والاختيارات المعتمدة في الأداء.\n\nإن كان سؤالك يتجه إلى باب محدد من الميثاق، فاذكره لأفصل لك ما ورد فيه باعتدال.`;
+    }
+
+    async function askGeminiWithKey(apiKey, promptText) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
+          contents: [{ role: 'user', parts: [{ text: promptText }] }]
+        })
+      });
+      if (!res.ok) throw new Error('API request failed');
+      const data = await res.json();
+      return data?.candidates?.[0]?.content?.parts?.[0]?.text || localCharterAnswer(promptText);
+    }
+
+    function appendBubble(role, text) {
+      const el = document.createElement('div');
+      el.className = `bubble ${role}`;
+      if (role === 'bot') {
+        el.innerHTML = `<span class="author">خادم الميثاق</span>${text}`;
+      } else {
+        el.textContent = text;
+      }
+      messagesArea.appendChild(el);
+      messagesArea.scrollTop = messagesArea.scrollHeight;
+    }
+
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const text = questionInput.value.trim();
+      if (!text) return;
+
+      appendBubble('user', text);
+      questionInput.value = '';
+      questionInput.style.height = 'auto';
+
+      const key = localStorage.getItem('khodam_gemini_key');
+      if (key) {
+        try {
+          const reply = await askGeminiWithKey(key, text);
+          appendBubble('bot', reply);
+          return;
+        } catch (_) {
+          appendBubble('bot', localCharterAnswer(text));
+          return;
+        }
+      }
+
+      setTimeout(() => {
+        appendBubble('bot', localCharterAnswer(text));
+      }, 200);
+    }
+
+    function handleKey(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleFormSubmit(e);
+      }
+    }
+
+    function askPreset(q) {
+      questionInput.value = q;
+      handleFormSubmit(new Event('submit'));
+    }
+
+    function clearChat() {
+      messagesArea.innerHTML = `
+        <div class="bubble bot">
+          <span class="author">خادم الميثاق</span>
+          أهلاً بك من جديد. يسعدني أن أستعرض معك مضامين «ميثاق تعلم القرآن الكريم وتعليمه» بدقة علمية وروح متزنة. تفضل بطرح سؤالك.
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
