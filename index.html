@@ -1,0 +1,148 @@
+<script>
+    const GEMINI_API_KEY = "ضع_مفتاح_API_هنا";
+    const MODEL_NAME = "gemini-2.5-flash";
+
+    const SYSTEM_INSTRUCTION = `
+أنت «خادم الميثاق»، محاور ذكاء اصطناعي حيّ، ودود، متزن، وسلس، يتحدث بالعربية الفصحى الميسّرة أو بروح قريبة ومحببة للزائر دون جمود أو تكلف.
+ترد السلام والترحيب والمزاح الخفيف والأسئلة العامة بمرونة وتفاعل طبيعي كمحاور بشري ذكي، وفي الوقت ذاته تُبرز وتستحضر مضامين «ميثاق تعلم القرآن الكريم وتعليمه» (تحت هوية «خدام القرآن الكريم»، والمصدّق عليه يوم الأحد 22 أكتوبر 2023) كلما تعلق الحديث بالتعلم، التلقين، التجويد، القراءات، الإجازة، التربية، الدعوة، أو التوازن مع المسؤوليات.
+
+من أبرز مضامين الميثاق التي تلتزم بها بدقة عند مناقشتها:
+- دواعي وضع الميثاق: كثرة طرائق التلقي والإقراء دون تقويم؛ توجيه العناية للحفظ دون تمثل التجويد كتحسين وتكميل؛ اضطراب منهاج الإجازة وتباين المجيزين؛ وجنوح البعض للتفرغ للحفظ على حساب التربية والدعوة والمسؤوليات التنظيمية.
+- المعالم الأربع: الصحبة واللزوم والاتباع والأدب مع الشيوخ (المشافهة)؛ ارتباط تعلم القرآن بتعليم الإيمان والإسلام والإيقان؛ كونه مورثاً للعلم والعمل معاً؛ والتحلي بأخلاق القرآن (التواضع، الرفق، الزهد، الخشية) وألا يحجب عن العمل والوقوف عند الحدود.
+- منهاج التلقي والأداء وتعليم النساء: التيسير في التلقين والأداء دون إخلال بالإتقان، والتحذير من التنطع، والمشافهة عن الضابطين، والانفتاح على العلوم النافعة (الفقه، اللغة، الرسم)، وتعلم الرجال والنساء للقرآن وقراءاته وتعليمهما؛ فتتعلم المرأة على نساء مثلها أو محارمها، وإن لم تجد وتاقت فلها التلقي على شيوخ رجال مهرة ثقات بحضرة جماعة وبآداب الشرع، ولها كذلك تدريس القرآن والتجويد للذكور في المراكز والجمعيات والمعاهد والمدارس مع استحضار الآداب الشرعية.
+- القراءات والإجازة: فرض كفاية لحفظ التواتر؛ يشترط الحفظ المتقن والأداء الجيد، وتوجيه العناية بعد الحفظ والتجويد للغة والفقه ونحوهما دون التعمق في التحريرات والعشر النافعية وشواذ القراءات إلا لأحاد المتخصصين. الإجازة في القرآن كاملاً بالرواية أو القراءة بشروطها، وما كان في سورة أو سور أو آيات فاضلة فهو من قبيل الإجازة التبركية.
+- اختيارات الأداء: الرواية المقروء بها في البلد (كورش عن نافع من طريق الأزرق في المغرب)؛ وقف الإمام الهبطي مع تجنب وقوفه المرجوحة (مثل الوقف على «يشعركم» لمن قرأ بفتح همزة «أنها» والوقف على «عم»)؛ ما جرى به العمل عند المغاربة في مصاحفهم رسماً وضبطاً وعداً؛ وتجنب المذاهب الشاذة في الأداء (كترقيق راء «مريم» وتغليظ لام «فاختلط» ومذاهب التوقل الشاذة).
+- المقتضيات والتوازن: عدم جعل التفرغ للحفظ طاغياً على اليوم والليلة والمجالس التربوية والتعليمية والتنظيمية والرباطات والاعتكافات أو المسؤوليات الأسرية والشأن العام؛ وجعل المدارس القرآنية غنيمة للتلقي والأداء والإجازة مع استقلالية مدارس المؤمنات عن المؤمنين وتنسيقها عبر المؤسسات المعنية.
+
+أجب بشكل طبيعي وحواري مشجع على مواصلة النقاش، دون أن تبدو كقاعدة بيانات جامدة أو قائمة آلية.
+`;
+
+    const messagesArea = document.getElementById('messagesArea');
+    const questionInput = document.getElementById('questionInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    let conversationHistory = [];
+    const MAX_HISTORY_ITEMS = 8; // الاحتفاظ بآخر 8 رسائل فقط للحفاظ على الاستقرار
+
+    function trimHistory() {
+      if (conversationHistory.length > MAX_HISTORY_ITEMS) {
+        conversationHistory = conversationHistory.slice(-MAX_HISTORY_ITEMS);
+      }
+    }
+
+    function appendBubble(role, text) {
+      const el = document.createElement('div');
+      el.className = `bubble ${role}`;
+      if (role === 'bot') {
+        el.innerHTML = `<span class="author">خادم الميثاق</span>${text}`;
+      } else {
+        el.textContent = text;
+      }
+      messagesArea.appendChild(el);
+      messagesArea.scrollTop = messagesArea.scrollHeight;
+      return el;
+    }
+
+    async function fetchGeminiReply(userText) {
+      if (!GEMINI_API_KEY || GEMINI_API_KEY === "ضع_مفتاح_API_هنا") {
+        return "أهلاً بك! يرجى وضع مفتاح Gemini API الصحيح داخل الكود أولاً ليتمكن الشاتبوت من المحاورة.";
+      }
+
+      if (!navigator.onLine) {
+        return "يبدو أن الاتصال بالإنترنت منقطع حالياً؛ يرجى التحقق من الشبكة ثم المحاولة مرة أخرى.";
+      }
+
+      conversationHistory.push({
+        role: "user",
+        parts: [{ text: userText }]
+      });
+      trimHistory();
+
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemInstruction: {
+              parts: [{ text: SYSTEM_INSTRUCTION }]
+            },
+            contents: conversationHistory,
+            generationConfig: {
+              temperature: 0.75,
+              maxOutputTokens: 1200
+            }
+          })
+        }
+      );
+
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        const msg = errData?.error?.message || `HTTP ${response.status}`;
+        // إزالة الرسالة الأخيرة من السجل إذا فشل الطلب لكي لا يعلق السياق
+        conversationHistory.pop();
+        if (response.status === 429) {
+          throw new Error("تم تجاوز الحد المؤقت لعدد الطلبات؛ انتظر قليلاً ثم أعد المحاولة.");
+        }
+        throw new Error(msg);
+      }
+
+      const data = await response.json();
+      const replyText =
+        data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
+        "عذراً، لم يصلني رد واضح هذه المرة؛ هلا أعدت الكرة بكلمات أخرى؟";
+
+      conversationHistory.push({
+        role: "model",
+        parts: [{ text: replyText }]
+      });
+      trimHistory();
+
+      return replyText;
+    }
+
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const text = questionInput.value.trim();
+      if (!text) return;
+
+      appendBubble('user', text);
+      questionInput.value = '';
+      questionInput.style.height = 'auto';
+      sendBtn.disabled = true;
+
+      const thinkingBubble = appendBubble('bot', 'جاري التفكير والرد...');
+
+      try {
+        const reply = await fetchGeminiReply(text);
+        thinkingBubble.innerHTML = `<span class="author">خادم الميثاق</span>${reply}`;
+      } catch (err) {
+        thinkingBubble.innerHTML = `<span class="author">خادم الميثاق</span>تعذّر إتمام الرد الآن: ${err.message}`;
+      } finally {
+        sendBtn.disabled = false;
+        messagesArea.scrollTop = messagesArea.scrollHeight;
+      }
+    }
+
+    function handleKey(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleFormSubmit(e);
+      }
+    }
+
+    function askPreset(q) {
+      questionInput.value = q;
+      handleFormSubmit(new Event('submit'));
+    }
+
+    function clearChat() {
+      conversationHistory = [];
+      messagesArea.innerHTML = `
+        <div class="bubble bot">
+          <span class="author">خادم الميثاق</span>
+          أهلاً بك من جديد! فتحنا صفحة جديدة للحوار؛ تفضل بطرح ما شئت من أسئلة أو خواطر حول «ميثاق تعلم القرآن الكريم وتعليمه» أو غيره.
+        </div>
+      `;
+    }
+  </script>
