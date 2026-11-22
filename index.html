@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>خادم الميثاق</title>
+<meta name="description" content="مساعد خبير بميثاق تعلّم القرآن الكريم وتعليمه">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: سكينة وهيبة، كلام قليل، هواء كثير
+   IDEA: مجلس إقراء — سؤال وجواب بين يدي نص الميثاق
+   PICTURE: المحادثة نفسها في أعلى الصفحة، فوق شريط أخضر بنقش خاتم ثماني
+   COLOUR and TYPE: أخضر مصحفي داكن، أبيض، لمسة ذهبية؛ Amiri للعناوين، Noto Naskh للنص
+   LAYOUT: عمود واحد هادئ: العنوان، المحادثة، الأسئلة المقترحة، ثم نص الميثاق كاملا */
+:root{color-scheme:light dark;
+--bg:light-dark(#fbfbf8,#0b1a15);--ink:light-dark(#14231d,#e9efe9);--mute:light-dark(#5b6b63,#9fb2a8);
+--green:#0f3d2e;--green2:light-dark(#e6efe9,#13302a);--gold:#c49a2c;--card:light-dark(#ffffff,#10251e);
+--line:light-dark(#dfe6e1,#22413a);--me:light-dark(#0f3d2e,#1d5a44)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.85 "Noto Naskh Arabic","Amiri",serif;overflow-x:clip}
+.band{padding:clamp(22px,4vw,48px) max(5vw,16px)}
+.wrap{max-width:880px;margin:0 auto}
+header{background:var(--green);color:#fff;position:relative;overflow:hidden}
+header.band{padding-bottom:140px}
+header svg.pat{position:absolute;inset:0;width:100%;height:100%;opacity:.13}
+header .wrap{position:relative;display:flex;align-items:center;gap:clamp(16px,3vw,32px)}
+.logo{flex:none;width:clamp(92px,14vw,132px);aspect-ratio:1;background:#fff;border-radius:22px;padding:6px;border:2px solid var(--gold);box-shadow:0 0 0 6px rgba(196,154,44,.18),0 14px 30px -14px rgba(0,0,0,.6)}
+.logo img{display:block;width:100%;height:100%;object-fit:contain}
+h1{font:700 clamp(28px,5vw,44px)/1.25 "Amiri",serif;margin:0 0 6px;text-wrap:balance}
+header p{margin:0;color:#d9e8df;max-width:60ch}
+.seal{display:inline-flex;gap:8px;align-items:center;color:var(--gold);font-size:14px;margin-bottom:10px}
+.chat{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-top:-96px;position:relative;box-shadow:0 18px 40px -24px rgba(0,0,0,.45);display:flex;flex-direction:column;min-height:460px}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);gap:8px;flex-wrap:wrap}
+.bar b{font:700 18px "Amiri",serif}
+.log{flex:1;padding:18px 16px;display:flex;flex-direction:column;gap:14px;max-height:62vh;overflow-y:auto}
+.msg{max-width:88%;padding:12px 16px;border-radius:16px;white-space:normal;overflow-wrap:anywhere}
+.me{align-self:flex-start;background:var(--me);color:#fff;border-end-start-radius:4px}
+.bot{align-self:flex-end;background:var(--green2);border-end-end-radius:4px}
+.bot p{margin:0 0 8px}.bot p:last-child{margin:0}.bot ul{margin:4px 0 8px;padding-inline-start:20px}
+.ref{display:inline-block;margin-top:6px;font-size:14px;color:var(--ink);border:1px solid var(--gold);border-radius:999px;padding:1px 12px;background:transparent;cursor:pointer;font-family:inherit}
+.tools{display:flex;gap:6px;margin-top:6px}
+.mini{font:13px "Noto Naskh Arabic",serif;background:none;border:0;color:var(--mute);cursor:pointer;padding:4px 6px;min-height:32px}
+.mini:hover{color:var(--ink)}
+.wait{color:var(--mute);font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 12px}
+.chip{font:15px "Noto Naskh Arabic",serif;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer;min-height:40px;text-align:start}
+.chip:hover,.chip:focus-visible{border-color:var(--gold);outline:none}
+form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+textarea{flex:1;font:16px/1.6 "Noto Naskh Arabic",serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;resize:none;min-height:48px;max-height:140px}
+textarea:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.send{background:var(--green);color:#fff;border:0;border-radius:12px;padding:0 20px;font:700 16px "Noto Naskh Arabic",serif;min-height:48px;cursor:pointer}
+.send:disabled{opacity:.5;cursor:default}
+.ghost{background:none;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:4px 12px;font:14px "Noto Naskh Arabic",serif;min-height:36px;cursor:pointer}
+.note{font-size:14px;color:var(--mute);margin:14px 4px 0}
+h2{font:700 clamp(26px,4vw,34px)/1.3 "Amiri",serif;margin:0 0 12px}
+.scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:14px}
+.scroll a{flex:none;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--gold);font-size:15px;padding:2px 4px}
+.search{width:100%;font:16px "Noto Naskh Arabic",serif;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);margin-bottom:18px}
+#charter section{margin-bottom:28px;scroll-margin-top:20px}
+#charter h3{font:700 23px/1.4 "Amiri",serif;color:light-dark(var(--green),#9fd4b8);margin:0 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+#charter .it{padding:10px 14px;border-radius:12px;margin-bottom:6px;scroll-margin-top:20px;transition:background .6s}
+#charter .it h4{margin:0 0 4px;font-size:17px}
+#charter .it h4 span{color:var(--gold);margin-inline-end:6px}
+#charter .it p{margin:0 0 6px}
+#charter blockquote{margin:6px 0;padding-inline-start:14px;border-inline-start:3px solid var(--gold);font-family:"Amiri",serif;font-size:18px}
+.it.flash{background:color-mix(in srgb,var(--gold) 22%,transparent)}
+.hide{display:none}
+footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line)}
+@media(max-width:600px){header .wrap{flex-direction:column;text-align:center}header p{margin-inline:auto}.msg{max-width:96%}.chat{margin-top:-80px}header.band{padding-bottom:112px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="band">
+<svg class="pat" aria-hidden="true"><defs><pattern id="k" width="72" height="72" patternUnits="userSpaceOnUse"><g fill="none" stroke="#fff" stroke-width="1.4"><rect x="18" y="18" width="36" height="36"/><rect x="18" y="18" width="36" height="36" transform="rotate(45 36 36)"/><circle cx="36" cy="36" r="7"/></g></pattern></defs><rect width="100%" height="100%" fill="url(#k)"/></svg>
+<div class="wrap">
+<div class="logo"><img alt="شعار خدام القرآن الكريم" src="data:image/webp;base64,UklGRmwvAABXRUJQVlA4IGAvAACQjQCdASoEAQQBPj0ci0QiIaETjNVEIAPEsTdwt5CBqT/w35M98hsL3nmlcm9hnovyH/dPnB/D9CfV/+u85DnT/ff3r80vl9/dv+v/jvdN+gv+x/dPgH/Tj/pf3//JfAD/X/8j/Ve6f+lf6/8nfgF/NP7X/1v8h++3ze/7H1Jf6P/Of8L9VfkD/p/+J/+Hrpewr+7PsC/sZ6Xv7WfBz+2v/u/0v/A+Rz9k//R+f/yAf/X1AP/P1e/VL/Kdu/9//ITzf/HvmX7x/c/2k/u/uN5E+tnUX+RfeD8//iP24/L35G/13hv75v5n/AfuZ/gPkX/GP5H/cf7V+2n+B/cv6DPr+1J03/Sf7f1BfWj5t/l/7p/l/+x/ffjZ+Y/0Hod/Lf47/ee4B+qv+t/MD++f//ob/RvYD/o39h/5P97/Lj6bf5L/rf47/b/tn7dP0H/D/9L/N/AZ/Kf6n/vv71/nf/N/mf///7/uH/8/uP/bL/5+6B+xn/xLuJkEisR7IZA92daYKCfjTCMSuDJSx7H9ZHBX1Qf7Ye1SlmO5Hcj5lcaiIdlbLPWCQFs+kfSPpnn9DgyZxB2VOOlYXk2BAOSSczCBitVWdZ7YXpwTscqskOtwNxOXcKc+mbD+mUbKHKPJLqFq5ekXD//yyL76n9MOdx8P7XNADOLwhMmXUjOdmmiy+Emeo2VWx6c7ibnRHA+Bkh3A0HdAzHbwrwDGlRaofB3cZIz/NrTUURa1OkG5brHSkm46UNIv8is47kd2raoDl25KKuSFFmf54I9tGeImNrlG2giK3FGvRKWr/m/Xigi3fZFC7am+poFghQ1wFEtI7kfLuao4UfD41xTSE8mjfsx3FGvIpiL6rtr7Q0Md2m43GpiYlVUcrBJxZtv4jhNf/9lu88VxQ1MOIggzkzGZhE7akmRr1hok9FDPufWVVRaw5z/2X18vOU4aMDXORSIvU9eYNjSVX1wmi0ExpnAX1h8iPUxj8l6BQ06483bulaqM0NXa163agybnHCVOufYwyuK0NH7qb2uO43avVqpEFW6hUeF9+36WA29wheP8kXJX5sRZ0RuEUCLYKuOVzr9ZWFHXno8ITcrrfO326otuJAHZy/5u4zwgJv/jtUqPYWfDn1zVyq+5nO2X9N2zB1nMfDEREiOTjSyKibKrA/id1KZVHU+vgwYtHvJNaqYtKvuX8d88BX5aQyxdd0vVYb0OyON6RkNI4ZK/4KgQhkArce4QTikskEPDGLNGP8xJSbVRJB6NjNnpKIvAXuJgBKaSWWkEGMSdgZw8h3ZWSQeMXfjdko5TBfqZnY1XOHi1lJ8DU7UHCM9j6FO0wsGcGTCSHElwe8DmBZyglR2SY3KsffjmIGDmM4ktoUmasYypePj8+lUN4sITo0PB3akt25vrZ9t5VzGm8osUiezdbWaABXfLXvByrt9ep6ln/36wS7AVuuHdx2MzW11cXadv7NKKzUgSfWcC92e/8uexkAiMMzvULOVa3N3PFnVzn6H9D+h/Q/of0MwAAP7/oyARXxcwdQnRrUJxN9dOPsaeU1r56FBjQ38+ulNwb56XgA1ADRytSY+R/zgdM/OJZ4u8Aaty1HWXUVJabKnWBa7Ts1AABoX7Axa/D29F0kXXyFrftMaSpIxxixII9CFOlwiis8EXRH/GeE+MCWU+nJwtLTgMzLDJqm4uedfZLxm3YOf0/qhAHnGT0lQputCr4pT9MUxIvFy15vLQDXKKOFP5LEH2MGPYQ0XA5SpH/lc2DzFaQEF3+dz/zMuq0GwjkMVZwbHFeSczRf3UsbOtKYctl89j11ThTtvFeYfZnEFxbNyNA6A7jvmTRMPiua7AHB7mf1PTZlgEVwU6oZeGut6RpVCE0XeO1fA9rHXTtUHml0n3eiXqiS6P1l+xuVkzxGRvBXdeK3sXO4d86LTFjZmlrB3Q3ffhk3uaFbfE/W0DU9VMfMaYcGmF53tIDt0P5N6laQOOACK37pEEhBo53pPql4UVHRbF0837ed3dDS6oL74UGSrmP7JICvZ776qU6fiB/Zt7kpfybdH4tzBg1gLEFzcuEQYxAfpKH8/h9LgOshxkXmRSqq5UOAnA/jDtnEVkmbyllPvp8lS9qNgM7qjjYWGA5twszijvqM7XEde+0pwf//6j3mTsNGDdwp1O6upfIj8/cdaq0oKtlyIq9oqcDEcL5r4vIn/XCABagQMfRK98NAXugpKQ9U9ZwMprHwgF2G1wjLj257dl1yL7T1VIwro5ctSLABi3uP1wlaGxZpnnLLRxlcXnMQL4kBVIKm4nHu4ABiwU1uuARmlfhie8m8bRr8bKBCtL525IMuvrwDALq6Fp6rH47t82dQDR1kH5yTER4onAN3E1jYFsXmyYFye/ETeHE8BfNS4D9+iXiPQPqgLEi/aJh4jiErDR0kaYzHuC0whav2xh8pPK6K9r0g84MUahOpkngYbje8H4W5qnSbEL6XlvD8VJ2bJ++ntfePUQJ7ABUd7bh+9dCmHcDafEM05ZWbPBmeHvhozTcSWn2lRWPn+CJha7fCg3Q63g95pJGQ0E0iyA2SfCK84+gM1VQo0U996qi7mqFR7/F5NhWZnEAxXh7Yuq9bf/eTndojixmFv7LQN1lG84tVs6HWA2Nfe4hTQAKx4QqN+xj/Bdy8OT+miqILcBR2Xjkn3iaobn/xi+sMyeDLCwoZaFh+SEkN9hkbokFO1KTNTzaHTbm7VDCL/0ZLRAnWt9333gC/VzY8RkUN6xv/jLfxy29cDd03cVisRRobLl7Kl1FK/FtTpoTs+ocFFE+/WrHOtycnUgQeMb+bDHI0GW90hBNdPRlHN3myW8AuM9sioBa1ruoX1n8Qd4hehNg1GpV84a5zJvOTo5leOsTE8Or6/i2aewDipS4dkjxsF6C3ZsDc4+04wBgcgv7U+LAzPMrdEICFtAGe+NzVULQ9U8cQvaGkJZQsEk+TIgPKk5zQbdgCfCMxQ0+XwbCyTNBS3sRci8Q7wN4751SmvnOrA3+NZ5B2d6u525JaQc0yyK4m3KbwPpedzGy2/M0dpj/HLg+tMaiKXkm1xkvDJVR5SWO4CxrLVrZIgk3F1mGiafhsiOzHgw7pyy2JKUWatBLQ8pJhq9j9mrvXwlIVOmfDuWv+BODtOudunWa2Gn51Z+B7KKyt/zt4yeX1E4Vnso4s7BzEX/ogg9J+S/Z03NHcquB2WyH1aLeWhc+ov7wDNaE5nWJ8P4kB3LIL0S/7qF6XureXr2rPChe9JgUWGP6EG3IVCPTffSdRTwEFCCahkLjtp5hUEpw1q5WFdoveusN8XYTj4gfXJeMLg/QRZfPTXEXemtbhVFQGnClES2drA7jw/zuRGMmk/5ab4xDyy9dRH+ahbZWLhAKUqHgi2/OqcLp+lgpZkDA1Tkiac8g5pBUm9+5Zm+8qpeejm//PkdX4o4v3XeLf+CfmX2S52MG3J/rHmkezrh8plWr/vDjfsy8b2pmt/odW5qNW92mGz1IJ2xhVo5ufHLIt9DogGxOpSr2M2osElnzuELOhVYzqq9BsJnMCGctao1CAFnLJ1bmm4YzKsLqjLUzlD/bdN8pUvMeHgxD4Z78jcqFYnAcvYjwB2EZL2PNeGRI22psT2LfccboZj/bR+jcPFkI9HL0RWy+gOIPSJHGYUTY2Ohb6UoceE//aVyil3rTGcJxJWHVR6mv7g6WK3TJ7BMF7tYcU8HlCMZ2+YYx/JcPSpgmFkADycGlyP2KiQ2Lzn/CJZBdfAvogwqqbf1JV8lZ7YeWlGMKmVCSkcIeATj9uONRMx0ciyIUwBdfIXyvdvJTHpiLhJNQSL/V9mJyheOh/N4wd/2pyhVcCKELLkrZMWweJ4wtT2p+Z+dRnkyyXm9H9gGR3oYL/Yvu4ZSPkNohcA2dXxednWlGqUtee8ScYRahWcjo0rjit7kHV+msmyHgmMCX1NJhrR2miMDRNTOUqTvUJwyzYVwyngzvkD0IhWG8RoRGzl7Pq6QQVD5bawmGiUtKV4cA/BBt6hdIjiDr5K96wFF6OfooOgCYKwYJoWWYesYEoC6Pzqs/mCRt/k69k11BDLgXnbvroy5B4qMGjVfNNj45sLgz6iTAKlgF9ICttCZe9/YRzclWBTXlKlgxKEa5dFp/M1gTtW4palb4f3XVQYWTq+LATYoRwql60m9rhyDGrgLeOj/XFYklaD4wfJ8vYafNG1aMenCX4ZHiVYe8W4N0U3gJ5nU3/yib83rprPWdsudDTEZoRhtn7T5pe7Xy+w+HyA/AnOAfqIkzcirrBcza5luaQ1PNk14pUfwgn1S+dpQNGWTCk2O441+RY/e8pFKyewNOoYewArPLwKmeU+iHNLenk6FGUBQubE7Q6+YA0mQKVdBKFP+fhm+jMz7GZEQbp8uR0tnFtW4k7jIQn0Vj6l9aGNwKcLMz69WTohAkAJsiLc4/w/RcN09VTPb2MvFKl3I90bBvti3d8WXazQVpPl6OdFX98EjM5P7qgYqswBYO6fKHssus3R8S7XLsqLeV+N53FWWuzFsugCYXWK47wmVLV1+tNQBhjvrPdCi87oMk9rlhmJuo6OqPY5CUvUuDFpwGWSdjmblwSvwIAZQfOlZ7SI6QG3kiWIBJxaCh7du4/hb26zx0EqZGz6NPRjVUIFdUZkaJq/xoKd4G/8PE6+D9E9+m9fOOfXqbhoWzsCCwk9Rbe4zjBofvTy4W7Z3NFrfljFzlonJasL9SMqFlFDgcO4DqhnevrE/lhi/p4BVBRXP3MkmNUyIi8cXntO4Log9B9cjeDLvGivYXiOy0wZtEKpgw+JT6mc/dNf+lYxCAF3LbMBZhCn3zjwQDq7awm0fyY2EIPAMEA7CwrDeP+hhH63Hl+UGA/ZpwUWwX5+5ub33cBogmvNNG0cFw8B6srpfZjuPDPn6OBKEf6kmtawjJzsg4lltRzxJu9/xAk/oS9V+mqjZLPW+p5KZGZFZHEEM9wMpGdUA2GPRyygCCpBm8M5d1hU9akgZue/y97+zcVafIDN45FartTcfY+jZWcphpkQk3dpBj9z9Ju8DcPgAax/d3uyD1OFwgt80fXojEm6DHB4AOpxsInWO0NSyKY02LNUxFWlgHrNcP2HPh1IwY15s0r5x47muLORTtae75Blvq5q5LwfCp5NXzgIuUI5BT/OSNZk7/cdTudo51ygEkyjlvwiyAHRv6mQDn1IteNoNkxRTCmN7159NU5CJ+wmQO0i+hwPCW5geVedWVtdneeO4OtGv8hrkFRFhnPwIf8UcUGLS8Oc2rq5u0TIRnNsQWs1eZm2DxslkbA56oBtSbpRRTuV6xZDwR9W4NuNSNDtySCMOOwsXhree/K3RLkpvx+hGAeOEu2BnBmmk2ZALVizM99YzzUQcpGyGJsrT1s4I+GMIRm1BG0PZ5Y3R+NXq2YgcXQ+dWiE6bipfAnLheuvz14+EXM+H2B83A52ts7aHKc4RTSxQOeRP8Q+056ZR7iEzGxSgjLxHYCV37iuBk6gM7NGUWkYqCYh5cy3HrFdn07h6x0vm1/+OCIrGD/PVbijmHjH5WComEIgHUqNjHfn/Zqu70+E7kV2ox4kFndDyFMkS8md2IRmhcLtkfIcgB69nVTfMT/v1xfphZ+dWqQAdAAhHb2l9lVYcfBcUnNhmAdfd1exZdUBLl2rCHIw6eAJ9i3vBuZEKyWBtqLCnWLgTj875U++XER3wLvt9fNm1iH2hASxSuEUg7kRCw3tWWszP1fiuOLbtuxx6YgL0IW265u8g1MkhHeLhJUL5f9AGY+hWija8i9UFHTZts275ygXDrPzb+rN20wDfhwhy3lIBRIcuFWgQafXYcd1ulcXNkj1C63byXXuBeLAtR9lswgYCUmeL3ble44SfrdfoodPLWUS1p1zF3+cFYZB98qMnuhX5weqAVMY1JH6YqZbsnboDYTwUY9lTH8MnFNS2OdlL+WGzK4DQxvrfHy2c8Nd2I1erisnrz0wClvnDWoiiBBXxtuLTj2FsDTBBF1QgumH4t6Mu5HNW+DM4XWeF6SZV0TjD647FL2ExgB5H1V8xcwp2uL9YCHW76qRQzOC8qt6pVmGOBQt0dklNbrJTBQGHfVr2N3X7uPJVhq9j/jBP/1WRyL4+Ugi4cqV3ooekqpu0RUTmwQoAvjMVNtkNp9idgklrwMapfQxECLNv4kmOeB2xzsfFr6/QC6GrNFxBsv+JQY3tvWlMuE9KR7/t1HQAiSgJJRHDUajyOx4Q3gwcFbxBj7lWvpWu6W594Sw5HoGPRg81fiuAxhAiuIvmhG+dpmFlnftC3eqReCvRaN0TdvDNbTsMXLq7zUxGSn80snwXrkmfSGXJi3rULKnse0EhhztmJK/6tC8etQ9r/UxJqkj720v0fjUat0BEjNueUkInzktLV6k9Vf3Z+fx9NV7unu+dpE/RPltqwns35qxbKDjFBx9OOJKyQTuk1Hw9QGNCajh7VZ/DedIP2MwJ+lpOsM/MWaL87qtFbTsWYlLMlqJS51S92pNbgNvXqPkw6cXqJXhD/p8ww9CXVXf0SayC47En1pEEybIzUbFoZrYN03kzZKGdC9Ra0e49cLPSEQeX98NZ8PVGJW1WOVrwujoCTN3ygG4bZi9iT+DNQoZMzCiDjY/KbS5p0Qjr4pDyrXcJCpgHJo5fB0+vH5NChBg3YkvQ5Vwb0asWpVbkeAadBIE7U7LMfF5WMmV5UbUr0XNNHcM0Oky2pmobLJ/KLvYg3RIMNnldGnjBymNLNr38z7N/RlD8Tb6f3IiogV/3S0BH2yvdgkTJu7BdSV+LdW3qKSTZmJiVvSPCbev+MK3to9MPMX1FmJ25jdzGlPxo3P3pWfO1LN1RBQAtn5Qpzif+TGuwhPQGzrBxLAB2L3suDANrooPdpLJyyf9Fr45hVv2nrEsaIssccVpBIfNHy6QosrGFVI2o7gePAB7cHMjs0SxfzlyG9qN8b8oaXUA+ENo8eI5S8Slrywu5hCp0EHZJJE/qHGQ618tD3/tDhcUGdiNx1UBoFy/TKu3tmO8QksxsycUq98IUyCW/7cAz2aClFwu7PHM6Lx4RG9/0krySMHlO2PTxQTl4dfZkQlh07GoK3MG+9KBQdZYR0UL1p85nCF+dM1Ih3rtU/RMxeR7TsDE0UL2iHx1nQEUtKskzBb+7gNeOyAU9QVPqoQvOUx1Pp97u0caRpv00+WJjjQj7uCP4Mp8AqV2/lpT/T9oYGe9xkfl+5DN1r8FTZDyvfWasptxkkM4jkIHL4svv7nNkX0zaHLJZTGLJgWnNWZ/uG7bgefR+NGOAbuc1+TFsdVwOumh2s5Fhfd+s1/WBXSTKavf5IuRmwJLPbPDys0IyMoo/UDCtxP+VDX+W48O1gYbW39PUBwShoMXl4NvZmQwSannAwo4MEDWZL3LaMpCKCg/iOQCVvZcbUm76Q/9IZIpoGww/BxZzRPVNP8t+qUwN/jJQycKNegLUTIjfD7IXlNYmaOw01kaTCRQewRAoB4xwuqA/hkl/lQCwYPwAKJP75TG+kOPDn/TTreZEUWcCVIqryeimTAOMjDbBnMdYh+lVHo6m3EDMr+W9Nsggp6UCj+iiQDFrLQlz6WRngiAvTkE2GZklJjFnKm7yYqEBU/o8ve2lDW3XBLUnBJhBBcMFn3YHClvUDQaKg6uKR+Ec+WxWQ5RXyFZHx04FsAghO4erK4DL/2dVZeHMq3HF+q5CeJ5/u8fD1y9PuDmqAFiT0mOaQYJgVZGKmkwEmWqmYlbAggkGscRrkx8UbaTlDsRBx49/Eca/59K6uxuYVUOGQ1s+W0XnolSXWqGb8VeP6+rZ6WazUwyPxgpmiXGrtHJiAaWEjcBe4aBVAsJQxMBNOdCGUS7z7RYUhZWpNvSk0mXLd54IB0jJmEFtG7ukakD14G6jCxmyxXsb6UmXPVqTHvAhTfDT9CMsZYHCFRMzoEHL8fsxrAjCC06T4oZ05sfFtudzkJ0+8UNqtmsv4mR/5GewAudOSvDFZdTOvUnYeTbmh34wOhUwzy1CiruPaBmyTJNC2m2+E9E2SG+oXric7sX1LMV2FCpFql/pHEVvzPeeU/DI/IP+ju4HJMk0byEn+qyn31bmPyD/jWHt2e9xPYcRAt/iOgskvmxB0hHy2W4aYREQn4YcWxKZTmY9XS2hd/LD1AsAjknYmwzz2FqGIO1+Jey2rFB6Qdrp1t8Li+LZ9IE0Im79Irdz9zBCO3bbLyvCTnGyu1nGH293/QgamWVfmjm439OUGpT+uhQ2nM2x7rYQ/kkfbOXoAR/B+9A0gmxCggSQJIupgL8BPtAbr8tBouzs0tmUPO/yQJBiKAH7kgWrfcSNAVR4bzQu5qMokkbSmb2rE/VFVaEpUkvO/l7nFzUfdcGtDrgppDZsVObcVJh/LDoQYTjmvKJzRqmVtstyegBzlHdSgJ+3pF6/6OUFGaUnzt0OpIwbuGYd5s9DfjOOBCe5AuktuYZ2eBYzj+M/URRb8UsJX3dT/Yl5wKtukvIFhAg/HJusda6s/uKCsq84CA9mjD2hcYadSBq13j7eVpqFVc6eEjSkXAgd9nZ9yukLE+E0RG3ezVN14GAGFJeztcDacTJ7fU9Yq75JmHGedwftJ5MBFrzF2nRTB6go695nrhN8iulkUnNiJ6CAcCsqpEgLvmQz3g7B/MAwtKPkJvAGmWReAzho66H4BTtMFvbisAo54CJoCpW3gB0hsufvAxsVkCUsQod/Ju24LHWqUX3UTUrYdnz7APHpBVQ1heiJi0jkanEBWEWoWOma8/NCmaJ54yk8n930AYcIVkXy2e5k/nx/R0acf/NcooIoZ1rf6ftlGA8G4qPK0MN2uF00SDNw9yNuxWiAIUQN7YGrvqK+800oCIHyJl5QuA9k8Bm8EICSs61VBJPwiA81/0Y+EEIcnRQTh54OeY3/fV9m/AuwAGKK3AG9KaNtI1Qd+MyPi6BqOdJ4Vu2VvoiLV7P+2nwyJJugpuZ4QU5T1+DOAbrPI47edxCn9PzKeWbgQb0MkfLAKlZPCBGcWCCutNA56xltIYC/uocPX2zhuuIQtlwZ8lBdgZrKMQTtoXxJAngPAhKU3+jaNlldcIeFP8gNcJCMLxa+aGocCfn9mjXVfR3Z4mzsvvsPRP4jFvN2u5jQ/NK5KJdMU9ThUcGRfTh/ytlZfYohiiUUu2LW5tRAsOzE1pVxh62U58P5Lar7IBHXhltj0gbbAgOFiqheTVpIfQ+FD51irAx+0A6YaeqyzsT++LnGXKSUQ7CKRAZjT5Xknheu6h/vQrW1LIUu/36LRKm+9xaro+GUq/FE9AGAUxUN1sUpHzp88pDPvu3GSCQXW3WlED1mloxF4sW/l74i3kCi7AMa2CpPFPH1DJVC5MAigUI04d87Jmdd/QLgICEWh7hLU2R8PzDszV4UjmtRrlJ6Sb4ylFWcr58lp/gFRWs6g5Sb5Q3g8RdGdvLONKfE8DxhDy2vkdoGzi4hkVH46Y/GYzOY81EauzX9Ah4VkZohkTpbcw3Al6gflIRqOcUfOdzahHoJaYXJt6mdkj/qG8S4E9sf1X4TH0J2Ep3WXVHLw9Wtk8xKfL/tYjgnehO9rX0wus0W7SABU+T23NLK608fnxmPcaXCkPmsNDUOhgHb/YQ3lB7hklujCBZ5bHTX5ehL5uAWCnPdDa89+UXdK8xrGX2dbwcHvGROteIkmDuwCZrOALo+tkHjvuF6bNN6w4d80PxoZcft/auv4gr+tnWZvIMnj+w0/YD3ID5MCue2dwF6lF5xY+6dke412WdB+C/05DQ/+uTOu/hYx84BYPHQv2a2Xmjhw1rSvaYYvS3e7uFb18KsPGFS6NekVcXEwHgfP7LSdIVJMHjH6BYaTSR0rfqHXZcoi5dbyFaCXg/f2E89hGanrAMb6YrjFRkjtuzzOVuQxjae+4136s1mKbSHnD+L5X9UIqxlfwcBMxsL2AZmOanhr5sPY4PpeUlll8ZKh18g9w0CmHadkxl6b7kUJ5tcEJKxvnjLruN+k0gXaGSGK571JjOcLayT27H5xeWHwwSD6qgd5hf5RuqbXYRk4eclbpdUQuWg6HDVY1l6QG+7KJrpglOD/O3AD6pQburbPq7pTMBf0GYeVvzxqNjHl9dDkWWf5H/qERTfhsk1pRp/29gpMVSQG0Y8AD+2pqoXpReIkiB2DmX/g56lcFJ+45WTrlsX7TtPkE70GhXV2mp+LIWW2KC2dnbNLi0YUZaSdv+YSLDuMMlK4gMpkSw0OxCcoicPsgg4UuOK0q66WDuQwVpQXYxg2UwvW5PhiU2+VPuS75R1HgWspqSHgLgo5d15JZQsk0gB8lWuyksalDsMD/epZDvJQnguWAifLqfAY7n4TxbGL5AIZpR3aZc0zMy7MVmnpubVKquXUBz4wucG7SAZyDYjvLN+vHWhmqiH4AK+AMEmxzEPCn5ZfV4Ux2feXWImPJjTNrEA7Ozi9cbJwXC8kon/QyxbjFOvpol93O1Bbw+NupkiaLGwGEaryPvMVjq/4sh/jGl2eeLc8IXDh1RiHk3ZFE3aTSYKd7dyH9hgs4cqnNBmgHCLJY6/fiRAADtSBHIT+d4hqgnBkPMAW9OiWUvCRqS19MAfS+0zKr2iukeYTSI4KySBSOlkc/by2YUrdBwCERLQLTPLfRVD0XMIht2dU2GpC+0l6oTJtzOP6GztLF2m2pYOW2r5jdgJ+ptZPc/5gcNkwsl1/yxeunwOmYrh4XdE82Thr4g8eVCNSnus3tk510G+cyKLnCiKPvxDs3P58MJI8PgGlxGlkqyQ3uEXCNwDd00be3/SIq+WVGZSXCdPwy4AYcare6KPkP8mVhI3TS9hLuxe+sVngoxwMbjQB/CBfW+XYWkzzyJHvDfedkDf9Eb4ZvPYQnWS5ZPzyXVcUr124nWmiR6p2uj4dMEn4WbUByrv6uPKu21zb7mxe1IYeVj4/WHWuUj/B1x4cxJ2Twe2eSCXpBnvP+iOcVAYuTqJMjeKVU/sWDbgKW3L0Yy4GuxB/om7ea9FhghIpcI+I04OC6rtAb7hLovZ/8Yj23VH714xha39HUsM2kMILkl5yWYQntCJDReheOJbDsZrU8uo/9yMDTi2ymo3mqYSVrxnpuJBTPl4zQFiTbcadVk3qwfdqiK+eBZvwRKjEszmp2fnAlIW2yQzIHnmxCtWvM2zJrHqkJPduLyh/gJ/iEEOQWSCxBTU0BBA3TQygbv3WX1vU9Onfp5gpX9uWwGV8gXUN6veJiK+KfRSiLL871qvy8HQBesZfJBue2hofhmHPGCm6bjXydODrxVPR8bguZ4BfIeusUj9LJQWcAW78+xytQrAATuquafYd5KSUNtfD7SeDhVFQdMuT9SPKFTl5SfL2LyA5YnHmzRpF3LTJNZI3ljc3mbf5La8vGiNvXagICSWVuXJ+jDVpZ3yDZ0ydFsvp/Jhz+T2wfFwlEKfNVIVwG8czVrM3CarghUm0Q3L/gfa6EwoQX5JCguW/lkGwAKsHv9HKjlU/sSMKQy8K/733opQi1my9piNbOj/vOtx/ORb4RysyprbXn8IcegEJB909D1m/j6OwcgAxyPan/j8R0FYaVFdv+4HDS221JI/bs0kwn1mTDBNV0BnuhcxGbedeMbbyTujDsabP16/hGliqSGCQhQOHVVIgSMf38VWw4v48i0DUDYJ6iLxT+36CV+4ittwH3I3A+eUtqERFqCbW3Ew93SCpcARhI1Nbycwjuz4mjIIYQR3zBhRFGRV4tD8qsi1SlvscHCE0/UnH0UDg5sUq5P3YNvwM8ydee2ev/JPJPIGv6eS/4SDwrGL5ytgMgKGJQR91UzRAEq6rd/HI5ngtBZsKYzH1iAvMz8K8QKanuQeowC7op0Tt11zoABak1sRjlKo9NaMIfJauqLPqK8dwc5OxpS/u8nt36jlYbS/jURhE5d1/4Q1XvORSe2ifLMUeFXVMOVLtcwWVq0T/RpQJBWeww9sdpEKD7bNF4/dsp6vQ7+k9MdLxESVOjBfUafGdg9gn+6JN86m9hIwZ6RE9ZO/zAzGKjgdw8pj29C8cmAHhmonLE9qsnVyGs3TJnvwgUu2J3YMdcgIBjzonCbXycboOf6xj0r0woh/FmjvWrellFXpaA6WeiDayE2KuK7Wi0eg3PTJRR9eY20XHGBY51EWjAf2qbRx/cYaglWu+kob90QTzVsjyrhonB/qq+EMy0tbxn6OXLMIAKP1C9lFhxkISGGa09qgukX/v/FPFkwM4e9Hewkh3zvR8XDHphhP9rMJsBzZ8vA/1HxP1awpIUSTMIL6QQG+Cer7ZF34asXpI4XUHAkaj+wBb67qRyssGMhNiSBlyX37DXHBtUKr9HVbi61ZKs8g2fx9/tPoJwQLGI+5vEQ+Be6+fdNZobuyohen3AZiytwAg2sW/2yiktb/eWNV0ZLbfgGCnPR8BGNvczWcyFSQ8/c/4GMU6YxlrKAziOkFK25YGGOnf8+ASm3gsRejVN8t2vI0dvp1tG3KPYuBoPByFuiyER2srSDrn1k06ptBExn1Oz0q5xvwivS0jdQicU8w1p5PbffcKlbq41y+ollSPWqmcpMtvUInwuWLrmCJN819nkgSA5mYXxpkTC4RyIhb837k8FCoEvjBB4IQZ7UxCx8DN80RhfLfRUtkBzDgNc/SruPInkOiPrD33OEngwjoesYViw5spNCesaOwprsiTAnK3yaJqZFmPP6Pz+Cyhxohf3Yh5mI1BkyJjBa6dnrv755MCz7AKzA15pu6m98TTD4Q42g7gDxW6FV5Z/8xgCp6M3I6V7nMbiH4kF2odaUUIv2iFTL14pVaRN9LTDHHTVopYneb4F6lv2jEYZNvJZcaoG15uQA/JO+PtKbRoZrd5nz0VX8DUCjNnzlhSd9mxfuFHOBXsCu8XQv97QZtKf4JgtVbjSh0ppM0LGOkyhOzmXRUqIVy8NagZk2lh3YdSk3dv8nNes2xuCIZ5iA33z1zHq3qIyUcHCNyKIGH6xzvYiHP5Vv3FgSAV3SDyRc9wbIkReczk0eRsqdTZ2hHlObJ+fOyiWP3iqp1fiCW459DclcB9kcc1sFmlJ1bsmDxMS598tdXT+vbdCRdRBj8bAsNLo/TMlvQcf8qPpWQaKwxkcf+ENPtSMy8NAiqILFOsM9Hj/ILk8F4AqFLWYbzIO6ixrq9IwXmXFIiqypHlQs+18/YGo0Kq6SmYaaOlbv2Ra1sR5xP8Gic0c/ld3f1wmR0XC08Htqc382ispARiU9Q+t4b/j8hpF6fn9Wv5lr3Xw6oZWvGYm/0+n719vIneVkFRfRpV+HFFZPIYFEC5VvjABYQmf+58VAsQBLqzbYoUmY6GYO1KR+wiVIyp7IqTyILNP4nFb8JnIzYdft6YsscUlkP96Fj7//L2TH0KUNttQOCSSJmeecP6c3ie1EAttQV8gWqk+jKUPb6/fJKH/uyfFbDVtbV9R7WRT6UWLJEEp5iH7FPw07H/yfhYCSEikEb4u39PqBbTtykNDuCsNfIH16ti+eFtf8ifWPd+8bMUWT+ghm/h3TLqwhU2XgSvnFgh0PA0yoByKDlzVqlSgp5p3EfmqxsJsaRRve643a9x4o7v9/yLhdveIx09hfRfz/fkBAdlXMqfVCqxUD3miwab2Fte52KEGhXbzfwiI0RaSFIMwoYo73wl1Wujx7Lc5TTQnC7TdhTuEYCEATO1M3xqEn08rx6HwqbHppgm+Wkcdlc/iJX0fvW5nDhIA3kTlnNeQ3Wf1auB1crE8FORlAo7aiGkMZTr5Rz8Gscn4BtwK31B/zGF63e0os91MEow9RJHkxBVDDHUd4/7meZPuh3zemQwbQc2xqeLFz/ID/8cf85la7rPd6CS/FH/0Ao//VaqZRSEVWgW3MQpF30CFF2YDnRG2iwiEJbIOuh6vKE6zn59T7+72GmYcZiotDrPx7jdF0CAVbYDLV1ScQ/uiaZjp1JxWhpzLIwshsGeThroktVWWHCmQVpaubyMaw10TLoUtDGC8RpyEgf7za7yrLdNC8/EeUdLf7/xL/hZ/6jPQasf/fi5b+eon1iaX+d+KewCO7SqIbk0qxQEDv1XXiUYWl9V3EzxBq3maopLOfGF9GXWWumdHVtsjJp+i3Pf8YccCZx6AR/qNeORJxLjbU37vdVp9qsVSLVEeLUAYlil78tz97NjPJ6wadLOc9Q9ZcDh8Bl84SfmewR41WCf+Aw/NtMmjWl3HQ0aTRDWvhMinqFI3frBjsftjw+SfiUWXN8rpCPLTn3aw689c2OB2lj6JUOL7eeE0SFfiE4eYG8k35mtiUWB56IJxkABEWpVF+ZbiqW3kAJU8L/l0fv+lMFTinzqTT+CtvojqNMtVlUl5/5zeo0RpioYve79hdLNxLZG+G8V3NI47L/OAsdoUq/p59K5VvvEGglY4ufnKO1Hmwe56Fc9H2NE3lb4m5bMKjnkoz4s7W0UP7vDJPun7PYZ47vhSkW94TwdPTnc/EMxUb4PwCVHVLwBQstzYLpJVfYWVHhj+GmySm/Z8WcFiOQ45XRGjpabT4Uwpn8YsEYXdNBYejxkV3utPbe0+CyH5p6gAk1z2hOk6MqXK0sxJwuer88hStkuhS1AaS+gCs9Y9/pu2lDZvOwUMadKQeJQt2pjRg9qq3wTFZPZIzm62JyMNlOUSteQtUEzB+E37Bd2Xm2YHHs0G0UvW4FHRL+BgxArDIMwc1nPCcf/Z9vWPEDUzZ/8bDWRsWo/rZWuxTgPpXsC4Dcfcj2+rBks4Ya7qnJQGtLqG2UugBkQu2uh/9Re/9VV76D+05Rw5c7953ixmOXtXUpi2W9wD8wY0ph8rQr57B13p+XWMVu06IS0Sk4Y8k3xw9zb2LueJFCX7hCUIqzBOPCbj+/ledOKRNi3nv6GfLTU4EUThTm8mtZOCGF/TbQzm/hozh8TjwfiLRudsuPH3mhriZUm1sihWZwpV/55yVgAuv/OuBP+Vx6wcci7l0FpkG2txN1I5oMY1Jl7Ma3sev/FPWaomcLOx1z61AzMBYgj0JwSR+68uknAaa7HxKr2hququiNUVVs7FLP2qLRxNwHkYq/ti+9vS3u0nB/5V77Y3OqzFMeTvWe+0eB3pLFVkG8yv61iEOnYrNxF/ouxxe8PN/PBj47zSern26nKJ+wK1AXXcmGzkwMyz9C51+CIMEx374FIlpeVgr2/RGYoTOVZFVyMTLgh0JntxmFwr+sEEw2m4DwUaurZyZ6nF0cQ5E2INd3Bj5XRrBJ9nn/+Dm6k98A3xpvX3JsFtE7PJfZqH7wrEDVdeJJjzYk7ZQJgPnYuXq97zP5XAvtOHYh2SIRpw7h2oGnsgwHFfy7A6IkZ5Yurdek5XgrwfpHVF/WMcVwABSPehIQrRz7XVRlzXDJtm2dA4fif4r/G0XoLjZB4jBnQINizNcxx+BL69nJP2wXcWXRGdJWexgtIpCp49mjsGCsHYw9mioKVaZAvdXxr4PuUBJ5yszhyW2SxhOzqZgloog1Q3w2Arq8ZqbdzaCzJdFexEiHADU6Qkp2dVXDOFBFiQxb8CQWw0xv3RTu34EmLjFdjBE9PEOhRJfVML0mMVxMaE3a8V+u7s3REJhETKgiquG9wa15e77KBa6afF0P3fOZUT2ujU9TzD9W8UT/ZmNYk5Dw1+8SxVsb/ZMHspyN2fCMgvyaUPwudQXSmnj4nJKzIKMb9sTMhN+/7BNyTXoW6sEft9TD36y5ggit6aw3YYaAC+4c33SU5mEdYWcByOAh9rmBh0NbLOHzU5mujZ210kSSVaa0bY9ihcINoPumhj+HfbFQTlkYmU9gTsMiPynfA+DF3qmcE4finiZNogAwTIgnQFmP80IA8tvMJOMciD1n+BhiGZ14IPNHKsGrTd0NEFfrpa2zhXawow6BX0dcfEKzIMhp2DJl0yerHyfa9ox79v0Rgz3FYSRAnyRKmnflgIhztrp7y/B3nzwxGnrLMSUG0fp5z1HurwJGxY/sZ2xcpE3dhsi7ufJtXVjqMNf1P00aFTCUQwwUjQQ0Gl0ufIJdtgYM7h50aOXofOjEkpjZ5UV4kLvBtCLfQyfIfBAARccSYpNKxNLquY1sXCFyJlG1mGq7BaBAPgAAAAAAAA=="></div>
+<div>
+<div class="seal">✦ صودق عليه يوم 22 أكتوبر 2023</div>
+<h1>اسأل عن ميثاق تعلُّم القرآن الكريم وتعليمه</h1>
+<p>مساعد خبير بالميثاق، يشرح لك مضامينه ويجيب عن أسئلتك بأسلوب واضح.</p>
+</div>
+</div>
+</header>
+
+<main class="wrap" style="padding:0 max(3vw,10px)">
+<div class="chat" id="chat">
+<div class="bar"><b>مجلس السؤال</b><button class="ghost" id="reset" type="button">محادثة جديدة</button></div>
+<div class="log" id="log" aria-live="polite">
+<div class="msg bot"><p>السلام عليكم ورحمة الله. اسألني عن أي شيء يخص الميثاق: دواعيه، معالم التعلم والتعليم، منهاج التلقي والأداء، القراءات والإجازة، الاختيارات في القراءة، أو المقتضيات العامة.</p></div>
+</div>
+<div class="chips" id="chips"></div>
+<form id="f"><textarea id="q" rows="1" placeholder="اكتب سؤالك هنا…" aria-label="سؤالك"></textarea><button class="send" id="send">اسأل</button></form>
+</div>
+<p class="note" id="note">الأجوبة مولَّدة آليًا اعتمادًا على مضامين الميثاق؛ يُرجَع إلى النص الأصلي عند الحاجة إلى الحسم.</p>
+
+<section class="band" style="padding-inline:4px">
+<h2>نص الميثاق</h2>
+<nav class="scroll" id="toc"></nav>
+<input class="search" id="s" type="search" placeholder="ابحث في نص الميثاق (مثال: الإجازة، المرأة، الهبطي)…" aria-label="بحث في النص">
+<article id="charter">
+<section id="s0" data-t="تمهيد"><h3>تمهيد</h3>
+<div class="it" data-r="تمهيد"><p>ميثاق تعلم القرآن الكريم وتعليمه: هو اتفاق جماعي على طرائق التعلم والتعليم للقرآن الكريم وقراءاته، المرضية من قبلنا، المنسجمة مع منهاجنا الكلي. ذلك أن للقرآن الكريم في منهاج العدل والإحسان مركزية في المرجعية والتصور والعمل والحركة، يقول الإمام عبد السلام ياسين رحمه الله:</p>
+<blockquote>«بالاعتصام الجامع يصبح لتلاوة القرآن وحفظه معنى غير معنى الحافظين للحرف والمرتِّلين للسمع، تصبح له غاية زائدة على غاية الفقيه المجتهد وغاية المتبتل العابد. يصبح القرآن بحرفه وأحكامه ونوره قبلة الأرواح وضياء الدنيا والآخرة. الاعتصام الجامع هو مخرج الأمة من الفتنة، ومعراجها من دركات الانحطاط والانهزام والغثائية.» (الإحسان 1/333)</blockquote></div>
+</section>
+
+<section id="s1" data-t="أولا"><h3>أولا: دواعي وضع ميثاق لتعلم القرآن الكريم وتعليمه</h3>
+<div class="it" data-r="أولا – البند 1"><p><b>1-</b> كثرة طرائق التلقي للقرآن الكريم وأدائه وإقراء حروفه عندنا دون العمل على تقويمها وتهذيبها.</p></div>
+<div class="it" data-r="أولا – البند 2"><p><b>2-</b> توجيه العناية إلى حفظ القرآن الكريم دون تمثل قواعد تجويد القراءة بحجة أن الحفظ هو المقصد، وإنما التجويد تحسين وتكميل.</p></div>
+<div class="it" data-r="أولا – البند 3"><p><b>3-</b> اضطراب منهاج الإجازة عندنا في القرآن الكريم وقراءاته، وتباين المجيزين بين المتساهل والمتشدد.</p></div>
+<div class="it" data-r="أولا – البند 4"><p><b>4-</b> جنوح مؤمنين ومؤمنات للتفرغ لحفظ القرآن الكريم على حساب التربية والدعوة وتحمل المسؤوليات التنظيمية.</p></div>
+</section>
+
+<section id="s2" data-t="ثانيا"><h3>ثانيا: معالم في تعلم القرآن الكريم وتعليمه</h3>
+<div class="it" data-r="ثانيا – البند 1"><h4><span>1-</span>التعلم والتعليم للقرآن الكريم صحبة ولزوم واتباع</h4>
+<p>ذلك أن الصحب الكرام رضوان الله عليهم تلقوا القرآن الكريم غضا طريا من فِي رسول الله صلى الله عليه وسلم، كأُبَيّ بن كعب وعبد الله بن مسعود وأبي موسى الأشعري وغيرهم، وأدوا القرآن وعلّموه للتابعين، وأخذ القراء العشرة عن التابعين، وهكذا إلى أن وصلنا بألفاظه ومعانيه وأحكامه وحِكَمه وأخلاقه وأوامره ونواهيه، بفضل الصحبة وملازمة اللاحق للسابق، والصبر على التعلم، والتأدب مع المعلمين والشيوخ القرأة وتوقيرهم. قال في الطيبة:</p>
+<blockquote>وَلْيَلْزَمِ الْوَقَارَ وَالتَّأَدُّبَا ... عِنْدَ الشُّيُوخِ إِنْ يُرِدْ أَنْ يَنْجُبَا</blockquote>
+<p>قال أبو بكر ابن الجزري (835 هـ) شارحا قول والده هذا: «هذا من آكد الواجبات، وهو السكون والوقار في مجلس القرآن وبين يدي الشيوخ، وسلوك الأدب معهم، وحفظ حرمتهم في الغيبة والحضور، ولينظرهم بعين الكمال، وإن رأى من أحدهم ما ينكره فليخرج له تأويلا حسنا، فلا يعجز عن ذلك إلا محروم قليل التوفيق وعديمه. ولقد كان بعض السلف إذا ذهب إلى شيخه يقول: اللهم أخف عيب معلمي عني فلا تُذهِب بركة علمه مني، وهذه طريقة من يريد الفلاح والانتفاع» (شرح طيبة النشر لابن الناظم، ص 163).</p>
+<p>ثم إن القراءة سنة متبعة يأخذها الآخر عن الأول، فـ«عن محمد بن الحسن صاحب أبي حنيفة أنه قال لمالك بن أنس: لِمَ قرأتم في ص ﴿وَلِيْ نَعْجَةٌ وَاحِدَةٌ﴾ [ص: 23] موقوفة الياء، وقرأتم في ﴿قُلْ يَا أَيُّهَا الْكَافِرُونَ﴾ ﴿وَلِيَ دِينِ﴾ [الكافرون: 6] منتصبة الياء؟ فقال مالك: يا أهل الكوفة لم يبق لكم من العلم إلا كيف ولِمَ، القراءة سنة تؤخذ من أفواه الرجال، فكن متبعا ولا تكن مبتدعا» (جامع البيان، ص 42). قال الشاطبي:</p>
+<blockquote>354 – وَمَا لِقِيَاسٍ فِي الْقِرَاءَةِ مَدْخَلٌ ... فَدُونَكَ مَا فِيهِ الرِّضَا مُتَكَفِّلَا</blockquote></div>
+<div class="it" data-r="ثانيا – البند 2"><h4><span>2-</span>تعلم القرآن الكريم لا ينفك عن تعليم الإيمان والإسلام والإيقان</h4>
+<p>فعن جندب رضي الله عنه قال: «كُنَّا مَعَ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ غِلْمَانًا حَزَاوِرَةً (أي قاربنا البلوغ)، فَتَعَلَّمْنَا الْإِيمَانَ قَبْلَ أَنْ نَتَعَلَّمَ الْقُرْآنَ، ثُمَّ تَعَلَّمْنَا الْقُرْآنَ فَازْدَدْنَا بِهِ إِيمَانًا» (السنن الكبرى للبيهقي).</p>
+<p>ونزل جبريل عليه السلام ليعلم النبي صلى الله عليه وسلم القرآن، وجاء ليعلم الناس دينهم، والدين إسلام وإيمان وإحسان. وجاء الأمر النبوي بتعلم اليقين إلى جانب تعلم القرآن، ففي الحديث: «تَعَلَّمُوا الْيَقِينَ كَمَا تَعَلَّمُوا الْقُرْآنَ حَتَّى تَعْرِفُوهُ فَإِنِّي أَتَعَلَّمُهُ» أخرجه أبو نعيم في الحلية عن ثور بن يزيد مرسلا (6/95).</p>
+<p>وكانت الرُّبُط في تاريخ الإسلام تؤسس لحماية الثغور جهادا في سبيل الله، ويُتعلم فيها الإيمان والقرآن وأركان الإسلام؛ فهذا أبو يعقوب الأزرق قرأ القرآن حدرا على شيخه ورش إذ رابط معه بثغر الإسكندرية، وذُكر أن رباط شاكر بالمغرب رتب فيه السلطان أبو الحسن المريني سنة 762 هـ طلبةً يقرأون القرآن ويختمونه في سبعة أيام، وهكذا رباط أبي محمد صالح (631 هـ)، وغيرهما من الرباطات.</p></div>
+<div class="it" data-r="ثانيا – البند 3"><h4><span>3-</span>تعلم القرآن الكريم وتعليمه مُورِّثان للعلم والعمل</h4>
+<p>ففي مصنف ابن أبي شيبة عن أبي عبد الرحمن السلمي قال: حدثنا من كان يُقرئنا من أصحاب رسول الله صلى الله عليه وسلم: «أَنَّهُمْ كَانُوا يَقْتَرِئُونَ مِنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ عَشْرَ آيَاتٍ، وَلَا يَأْخُذُونَ فِي الْعَشْرِ الْأُخْرَى حَتَّى يَعْلَمُوا مَا فِي هَذِهِ مِنَ الْعَمَلِ وَالْعِلْمِ، فَإِنَّا عُلِّمْنَا الْعَمَلَ وَالْعِلْمَ».</p></div>
+<div class="it" data-r="ثانيا – البند 4"><h4><span>4-</span>التحلي بأخلاق القرآن للمعلِّم والمتعلم</h4>
+<p>وذلك بألا يُخليا أنفسهما من الخلال الحميدة: من التقلل من الدنيا والزهد فيها، والسخاء والصبر والحلم ومكارم الأخلاق، وطلاقة الوجه. وهما أولى الناس بخلق التواضع والرفق والرحمة بالخلق أجمعين، فلا يَرَيا لنفسيهما فضلا على غيرهما. سُئلت عائشة رضي الله عنها عن خُلُق رسول الله صلى الله عليه وسلم فقالت: «كان خُلُقه القرآن». وقال عبد الله بن مسعود رضي الله عنه: «ينبغي لحامل القرآن أن يُعرف بليله إذا الناس نائمون، وبنهاره إذا الناس مفطرون، وبورعه إذا الناس يخلطون، وبتواضعه إذا الناس يختالون، وبحزنه إذا الناس يفرحون، وببكائه إذا الناس يضحكون، وبصمته إذا الناس يخوضون».</p>
+<p>وليحذر القارئ من تلاوة القرآن والقرآن يلعنه، ومن قراءته وتحبيره ليقال له: إنك قارئ. وألا يحجبنا حفظ القرآن وتجويده ودرك قراءاته المختلفة عن العمل بمقتضاه والوقوف عند حدوده.</p></div>
+</section>
+
+<section id="s3" data-t="ثالثا"><h3>ثالثا: منهاج التلقي والأداء للقرآن الكريم</h3>
+<div class="it" data-r="ثالثا – البند 1"><h4><span>1-</span>التيسير في التلقين والأداء والتجويد</h4>
+<p>والمقصود بذلك تسهيل قراءة القرآن وإقرائه وحفظه وأدائه وفهم معانيه؛ بغية الاتعاظ والاعتبار. ويشهد لهذا التيسير قوله تعالى: ﴿فَإِنَّمَا يَسَّرْنَاهُ بِلِسَانِكَ لِتُبَشِّرَ بِهِ الْمُتَّقِينَ وَتُنْذِرَ بِهِ قَوْمًا لُدًّا﴾، ﴿فَإِنَّمَا يَسَّرْنَاهُ بِلِسَانِكَ لَعَلَّهُمْ يَتَذَكَّرُونَ﴾، ﴿وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ﴾. والتيسير لا يناقض الإتقان حفظا وأداء.</p>
+<p>ثم إن هناك ظواهر صوتية فيها عسر في النطق والتلقين والأداء مثل الاختلاس والإشمام والروم، وحريّ بالمعلم لهذه الظواهر التدرج بالمتعلم حتى يستقيم لسانه على النطق السليم بها.</p></div>
+<div class="it" data-r="ثالثا – البند 2"><h4><span>2-</span>الحذر من التنطع في تجويد الحروف على حساب التدبر والخشوع</h4>
+<p>قال الغزالي عمن قصر عمره على تصحيح مخارج الحروف في القرآن: «هو غرور، إذ المقصود من الحروف المعاني، وإنما الحروف ظروف وأدوات» (إحياء علوم الدين 3/399). وقال أبو شامة المقدسي: «لم يبق لمعظم من يطلب القرآن العزيز همة إلا في قوة حفظه، وسرعة سرده، وتحرير النطق بألفاظه، والبحث عن مخارج حروفه، والرغبة في حسن الصوت به، وكل ذلك وإن كان حسنا ولكن فوقه ما هو أهم وأتم وأولى وأحرى، وهو فهم معانيه، والتفكر فيه، والعمل بمقتضاه، والوقوف عند حدوده، وثمرة خشية الله تعالى من حسن تلاوته» (المرشد الوجيز، ص 421).</p>
+<p>وهذا لا يعني عدم تنبيه اللاحن في تلاوته وإيقافه على خطئه بحكمة، وتبيين أن ذلك قد يؤثر في صحة العبادة؛ فإن من الفقهاء من قال ببطلان صلاة من لم يميز في أم القرآن الضاد من الظاء في ﴿وَلَا الضَّالِّينَ﴾. جاء في عقد الجواهر الثمينة لابن شاس (1/141): «إمامة من لا يميز بين الضاد والظاء: إن صلاته لا تصح».</p></div>
+<div class="it" data-r="ثالثا – البند 3"><h4><span>3-</span>الحفظ المتقن للقرآن وتجويد القراءة هو مرمى المؤمن والمؤمنة</h4>
+<p>إذ لا حفظ متقن دون أداء حسن، فالقرآن أنزله الله تعالى مرتلا، قال تعالى: ﴿وَرَتَّلْنَاهُ تَرْتِيلًا﴾ أي أنزلناه مجودا، وقال تعالى: ﴿وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا﴾، وقال ابن الجزري في المقدمة:</p>
+<blockquote>وَالْأَخْذُ بِالتَّجْوِيدِ حَتْمٌ لَازِمُ ... مَنْ لَمْ يُجَوِّدِ الْقُرْآنَ آثِمُ<br>لِأَنَّهُ بِهِ الْإِلَهُ أَنْزَلَا ... وَهَكَذَا مِنْهُ إِلَيْنَا وَصَلَا</blockquote></div>
+<div class="it" data-r="ثالثا – البند 4"><h4><span>4-</span>تلقي القرآن والقراءات عن أهله الضابطين مشافهة هو الأصل، ووسائل التواصل مساعدة</h4>
+<p>قال تعالى: ﴿وَإِنَّكَ لَتُلَقَّى الْقُرْآنَ مِنْ لَدُنْ حَكِيمٍ عَلِيمٍ﴾، وقال الداني: «والأصل في ذلك ما أجمع العلماء على قبوله وصحة وروده، وهو عرض النبي صلى الله عليه وسلم القرآن في كل عام على جبريل عليه السلام، وعرضه على أبيّ بن كعب بأمر الله عز وجل له بذلك، وعرض أبيّ عليه، وعرض غير واحد من الصحابة على أبيّ، وعرض الصحابة بعضهم على بعض، ثم عرض التابعين ومن تقدم من أئمة المسلمين جيلا فجيلا وطبقة بعد طبقة إلى عصرنا هذا» (شرح قصيدة الخاقاني في القراء وحسن الأداء لأبي عمرو الداني، ص 27).</p></div>
+<div class="it" data-r="ثالثا – البند 5"><h4><span>5-</span>انفتاح متعلم القرآن ومعلمه على العلوم النافعة</h4>
+<p>وذلك بأن يتعلم طالب القرآن الكريم ومعلمه من الفقه ما يصلح به أمر دينه ويرشد أمته، ويعلم من التفسير واللغة طرفا صالحا، ومن النحو والصرف ما يحتاج إليه. ويتعلم من رسم المصاحف ما به يقيم قراءاته، كمعرفة المقطوع والموصول وما كتب بالتاء أو الهاء وما زيد من الألفات والياءات والواوات على خط المصحف، إذ هناك ألفاظ لا يساوي الرسم فيها اللفظ، ولا يقاس رسمها على الخط العربي.</p></div>
+<div class="it" data-r="ثالثا – البند 6"><h4><span>6-</span>تعلم القرآن وقراءاته وتعليمهما للرجال والنساء</h4>
+<p>إن تعلم القرآن الكريم وتعليمه، وإتقان التلاوة وتحقيق لفظ القراءة، وتلقي روايات القرآن وقراءاته غير مقتصر على الرجال فقط، بل إن ذلك متعين على الرجال والنساء لعموم حديث «خيركم من تعلم القرآن وعلمه» (صحيح البخاري)؛ ولأن النساء شقائق الرجال في الأحكام إلا ما يرجع إلى خصوصيات كلٍّ.</p>
+<p>وتعلم المرأة للقرآن والقراءات يكون على نساء مثلها، أو بتلقي ذلك عن آبائهن أو أبنائهن أو إخوانهن أو أزواجهن أو أعمامهن أو أخوالهن. فإن لم تظفر المرأة بالمعلِّمة المتقنة التي توقفها على تقويم الحروف وتجويد التلاوة، أو تاقت نفسها لتلقي روايات القرآن وقراءاته ولم تجد من يلقنها ذلك ممن ذكرناهم، فلها أن تتلقى روايات القرآن وتؤديها على شيوخ رجال مهرة وتُجاز فيها، ويكون التلقي والأداء بحضرة جماعة، وألا تكون متبرجة بزينة وغير خاضعة بالقول عند حديثها، وإن كانت منفردة مع المعلم الرجل فمع أحد محارمها، وأن يكون المعلم متزوجا ثقة، معروفا عند الناس بالدين والصيانة والحفظ والأمانة.</p>
+<p>وللمرأة أن تدرّس القرآن الكريم وقواعد التجويد للذكور في المراكز والجمعيات والمعاهد والمدارس مع استحضار الآداب الشرعية.</p></div>
+<div class="it" data-r="ثالثا – البند 7"><h4><span>7-</span>العمل بكل الطرق والآليات والمناهج الموصلة إلى حفظ القرآن وترتيله بإتقان.</h4></div>
+</section>
+
+<section id="s4" data-t="رابعا"><h3>رابعا: منهاج تعلم القراءات القرآنية وتعليمها والإجازة فيها</h3>
+<div class="it" data-r="رابعا – البند 1"><h4><span>1-</span>تعلم القراءات القرآنية وتعليمها فرض على الكفاية</h4>
+<p>وذلك حتى تبقى هذه الروايات المنقولة عن الحضرة النبوية منتشرة مقروءا بها ولا ينقطع تواترها؛ فإن وجد الواحد أو الاثنان ممن جمعوا القراءات السبع أو العشر في مدينة حصلت بذلك الكفاية. إذ هناك أمور ينبغي توجيه العناية إليها بعد حفظ القرآن وتجويده، كاللغة العربية والفقه وغيرهما، بدل صرف الجهد في التحريرات وحفظ العشر النافعية ودرك شواذ القراءات على أهميتها، إذ يُترك هذا لآحاد المتخصصين الجامعين لمقامي الرواية والدراية.</p></div>
+<div class="it" data-r="رابعا – البند 2"><h4><span>2-</span>الحفظ المتقن للقرآن الكريم والأداء الجيد لحروفه وآيه شرطان أساسيان لتعلم القراءات.</h4></div>
+<div class="it" data-r="رابعا – البند 3"><h4><span>3-</span>الإجازات وأسانيد القراءات يُسعى إليها دون أن تكون غاية المقرئ المحسن.</h4></div>
+<div class="it" data-r="رابعا – البند 4"><h4><span>4-</span>العمل عندنا على الإجازة في القرآن الكريم كاملا</h4>
+<p>برواية أو روايات أو قراءة أو قراءات بشروطها المعتمدة عند أئمة هذا الشأن، وأما الإجازة في سورة أو سور معينة أو آيات فاضلة فهي عندنا من قبيل الإجازة التبركية.</p></div>
+<div class="it" data-r="رابعا – البند 5"><h4><span>5-</span>الأخذ من مناهج المقرئين في الإقراء والإجازة ما ينسجم مع سلوكنا العام.</h4></div>
+</section>
+
+<section id="s5" data-t="خامسا"><h3>خامسا: اختيارات في القراءة والأداء</h3>
+<div class="it" data-r="خامسا – البند 1"><h4><span>1-</span>الاعتماد في حفظ القرآن وتجويده وإمامة الصلاة على الرواية المقروء بها في البلد</h4>
+<p>مثال: اعتماد رواية ورش عن نافع من طريق أبي يعقوب الأزرق عندنا في المغرب.</p></div>
+<div class="it" data-r="خامسا – البند 2"><h4><span>2-</span>اختيار وقف الإمام الهبطي في الحفظ والأداء</h4>
+<p>مع تجنب بعض وقوفه المرجوحة ما أمكن، كالوقف على ﴿يُشْعِرُكُمْ﴾ في قوله تعالى: ﴿وَمَا يُشْعِرُكُمْ أَنَّهَا إِذَا جَاءَتْ لَا يُؤْمِنُونَ﴾ فيمن قرأ بفتح همزة «أنها»، والوقف على ﴿عَمَّ﴾ في قوله تعالى: ﴿عَمَّ يَتَسَاءَلُونَ﴾.</p></div>
+<div class="it" data-r="خامسا – البند 3"><h4><span>3-</span>اختيار ما جرى به العمل عند المغاربة في مصاحفهم رسما وضبطا وعدًّا.</h4></div>
+<div class="it" data-r="خامسا – البند 4"><h4><span>4-</span>اختيار الآراء الراجحة في الأداء</h4>
+<p>والأخذ بما جرى به العمل في الرواية المقروء بها، وتجنب المذاهب الشاذة كترقيق راء ﴿مَرْيَمَ﴾، وتغليظ اللام في ﴿فَاخْتَلَطَ﴾ مثلا. قال الشاطبي:</p>
+<blockquote>348 – وَفِي الرَّاءِ عَنْ وَرْشٍ سِوَى مَا ذَكَرْتُهُ ... مَذَاهِبُ شَذَّتْ فِي الْأَدَاءِ تَوَقُّلَا</blockquote>
+<p>«توقلا» أي: صعودا وارتفاعا، يشير إلى مذاهب أهل القيروان وغيرهم في الراء، وأنها مبنية على أقيسة يضعف النص في بعضها ويعدم في بعض، فهذه المذاهب شذ ارتفاعها ونقلها في طرق الأداء، فلا يُحفل بها.</p></div>
+</section>
+
+<section id="s6" data-t="سادسا"><h3>سادسا: مقتضيات عامة وتنبيهات</h3>
+<div class="it" data-r="سادسا – البند 1"><p><b>1-</b> الانشغال بحفظ القرآن الكريم عن يوم المؤمن وليلته والمجالس التربوية والتعليمية والتنظيمية ومجالس النصيحة والرباطات والاعتكافات لا نقول به ولا نتبناه.</p></div>
+<div class="it" data-r="سادسا – البند 2"><p><b>2-</b> التفرغ لحفظ القرآن الكريم على حساب المهمات التربوية والدعوية والأسرية والمسؤوليات التنظيمية ومهام الشأن العام ليس من سلوكنا ولا منهاجنا.</p></div>
+<div class="it" data-r="سادسا – البند 3"><p><b>3-</b> مدارسنا القرآنية فيها غنيمة للتلقي والأداء والإجازة، ولا يُلجأ إلى غيرها إلا بعد الاستشارة ووجود الداعي إلى ذلك.</p></div>
+<div class="it" data-r="سادسا – البند 4"><p><b>4-</b> الأصل استقلالية مدارس القرآن للمؤمنات عن مدارس المؤمنين.</p></div>
+<div class="it" data-r="سادسا – البند 5"><p><b>5-</b> مدارس القرآن الكريم على مستوى الأقاليم يتم استحداثها وتأسيسها بتشاور مع المؤسسات المعنية (أمانة الإقليم – مجلس إقليم المومنات والمومنين)، حيث يتم تحديد الأنشطة وبرمجتها وضبط طرق متابعتها.</p></div>
+<div class="it" data-r="سادسا – البند 6"><p><b>6-</b> تدبير مدارس تحفيظ القرآن الكريم العابرة للنطاقات الجغرافية يتم بتنسيق مع المؤسسات ذات الاختصاص بما لا يخل بالسير الطبيعي لكل نطاق.</p></div>
+<div class="it" data-r="سادسا – البند 7"><p><b>7-</b> يتم تنزيل أوراق تفصيلية من قبل لجنة القرآن الكريم مؤمنين ومؤمنات، تتعلق بكيفيات تعلم القرآن وتعليمه والإجازة فيه وفي القراءات القرآنية، وكيفيات التحقق من الحفظ المتقن والأداء الحسن، وطرائق تحسين التلاوة.</p></div>
+<div class="it" data-r="سادسا – البند 8"><p><b>8-</b> تكلف الهيئة العامة للتربية والدعوة والهيئة العامة للعمل النسائي بتنزيل مقتضيات هذا الميثاق.</p></div>
+<div class="it" data-r="سادسا – البند 9"><p><b>9-</b> تسري مضامين هذا الميثاق على تعلم القرآن وتعليمه داخل مجالسنا التربوية والتعليمية، ومدارسنا القرآنية ومحاضن الإقراء والتجويد.</p></div>
+<div class="it" data-r="سادسا – البند 10"><p><b>10-</b> تم التصديق على هذا الميثاق والإشهاد عليه يوم الأحد 22 أكتوبر 2023، ويبدأ العمل به من يومه.</p></div>
+</section>
+</article>
+<p class="note hide" id="none">لا توجد نتائج لهذا البحث.</p>
+</section>
+</main>
+<footer class="band"><div class="wrap">ميثاق تعلم القرآن الكريم وتعليمه — نسخة رقمية للاستشارة. المرجع المعتمد هو النص الرسمي للميثاق.</div></footer>
+
+<script>
+{
+const $=id=>document.getElementById(id);
+const log=$('log'),q=$('q'),send=$('send'),chips=$('chips');
+const SUG=['ما دواعي وضع هذا الميثاق؟','ما شروط تلقي المرأة القراءات على شيخ رجل؟','هل الإجازة في سورة واحدة معتبرة؟','ما الرواية المعتمدة في الحفظ وإمامة الصلاة؟','هل يجوز التفرغ الكامل لحفظ القرآن؟','من يكلَّف بتنزيل مقتضيات الميثاق؟'];
+chips.innerHTML=SUG.map(s=>`<button type="button" class="chip">${s}</button>`).join('');
+// فهرس
+$('toc').innerHTML=[...document.querySelectorAll('#charter section')].map(s=>`<a href="#${s.id}">${s.querySelector('h3').textContent.split(':')[0]}</a>`).join('');
+// النص الكامل للنموذج
+const CH=[...document.querySelectorAll('#charter .it')].map(it=>`[${it.dataset.r}] ${it.closest('section').querySelector('h3').textContent}\n${it.innerText.trim()}`).join('\n\n');
+const RULES=`أنت عالم خبير بـ«ميثاق تعلم القرآن الكريم وتعليمه»، استوعبت مضامينه ومقاصده استيعابا تاما، وتجيب السائلين كما يجيب الشيخ المتمكن في مجلسه. نص الميثاق بين الوسمين أدناه هو مصدر علمك الوحيد، ولا تستعمل معلومات من خارجه.
+طريقة الجواب:
+- أجب من عندك بأسلوبك الخاص وبعبارة جديدة، كمن يشرح ويوضح ويعلّل؛ لا تنسخ جملا من النص ولا تقتبس فقرات منه، بل أعد صياغة المعنى واشرح الحكمة منه حين يفيد ذلك.
+- لا تذكر أرقام البنود ولا الأقسام ولا عبارات مثل «جاء في البند» أو «ينص الميثاق في القسم». يمكنك أن تقول «الميثاق يرى» أو «من توجهات الميثاق» عند الحاجة فقط.
+- أجب بلغة السائل (العربية الفصحى افتراضيا)، بأسلوب واضح دافئ مؤدب، وباختصار (من ثلاث إلى ست جمل) ما لم يُطلب التفصيل.
+- التزم بمضامين الميثاق ومواقفه: لا تخالفها، ولا تنسب إليه ما ليس فيه، ولا تُفتِ في مسائل لم يتناولها. إن لم يتناول الميثاق السؤال فقل ذلك بلطف، وقدّم ما يتصل به من توجهاته إن وُجد، واقترح الرجوع إلى لجنة القرآن الكريم.
+- إن كان السؤال لا علاقة له بالميثاق فاعتذر بلطف وذكّر بمجال اختصاصك.
+- لا تستعمل من التنسيق إلا **التغليظ** والقوائم التي تبدأ بـ «- ».
+<الميثاق>
+${CH}
+</الميثاق>`;
+/* ====== الإعدادات ====== */
+const CONFIG={
+  API_KEY:'COLLEZ_VOTRE_CLE_API_ICI',            // ← ضع مفتاح Gemini هنا
+  MODELS:['gemini-3.5-flash-lite','gemini-2.5-flash'] // يجرّب الأول، وإن لم يتوفر ينتقل للثاني
+};
+let hist=[],busy=false,ctl=null;
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function fmt(t){
+  const lines=esc(t.trim()).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').split('\n');
+  let h='',ul=false;
+  for(const l of lines){
+    if(/^\s*[-•*]\s+/.test(l)){if(!ul){h+='<ul>';ul=true}h+='<li>'+l.replace(/^\s*[-•*]\s+/,'')+'</li>'}
+    else{if(ul){h+='</ul>';ul=false}if(l.trim())h+='<p>'+l+'</p>'}
+  }
+  if(ul)h+='</ul>';return h;
+}
+function add(cls,html){const d=document.createElement('div');d.className='msg '+cls;d.innerHTML=html;log.appendChild(d);log.scrollTop=log.scrollHeight;return d}
+log.addEventListener('click',e=>{
+  const c=e.target.closest('.copy');if(c){navigator.clipboard?.writeText(c.closest('.msg').dataset.raw||'').then(()=>{c.textContent='نُسخ ✓';setTimeout(()=>c.textContent='نسخ',1500)}).catch(()=>{})}
+});
+async function callGemini(contents,signal){
+  let last=null;
+  for(const model of CONFIG.MODELS){
+    const res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+model+':generateContent?key='+encodeURIComponent(CONFIG.API_KEY),{
+      method:'POST',signal,headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({systemInstruction:{parts:[{text:RULES}]},contents,generationConfig:{temperature:0.4,maxOutputTokens:4096}})
+    });
+    if(res.status===404||res.status===400&&model!==CONFIG.MODELS.at(-1)){last={code:'model',status:res.status};continue}
+    if(res.status===429)throw{code:'rate'};
+    if(!res.ok){let m='';try{m=(await res.json()).error?.message||''}catch(_){}throw{code:'http',status:res.status,message:m}}
+    const data=await res.json();
+    const txt=(data.candidates?.[0]?.content?.parts||[]).map(p=>p.text||'').join('').trim();
+    if(!txt)throw{code:'empty'};
+    return txt;
+  }
+  throw last||{code:'model'};
+}
+async function ask(text){
+  text=text.trim();if(!text||busy)return;
+  busy=true;send.disabled=true;q.value='';chips.classList.add('hide');
+  add('me','<p>'+esc(text)+'</p>');
+  const b=add('bot','<p class="wait">جارٍ التفكير…</p>');
+  const contents=[...hist.slice(-10),{role:'user',parts:[{text}]}];
+  ctl=new AbortController();
+  try{
+    const r=await callGemini(contents,ctl.signal);
+    b.innerHTML=fmt(r);b.dataset.raw=r;
+    b.insertAdjacentHTML('beforeend','<div class="tools"><button type="button" class="mini copy">نسخ</button></div>');
+    hist.push({role:'user',parts:[{text}]},{role:'model',parts:[{text:r}]});
+  }catch(e){
+    if(e&&e.name==='AbortError'){b.remove()}
+    else b.innerHTML='<p>'+(e.code==='rate'?'كثرت الأسئلة في وقت قصير، أعد المحاولة بعد دقيقة.':e.code==='empty'?'لم يصل جواب، أعد صياغة سؤالك من فضلك.':(e.status===400||e.status===403)?'تعذّر الاتصال بالمساعد (مشكلة في مفتاح الربط). يرجى إخبار المشرف.':'تعذّر الحصول على جواب الآن، تحقق من الاتصال بالإنترنت وأعد المحاولة.')+'</p>';
+    console.warn('Gemini error',e);
+  }finally{busy=false;send.disabled=false;q.focus()}
+}
+$('f').addEventListener('submit',e=>{e.preventDefault();ask(q.value)});
+q.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();ask(q.value)}});
+q.addEventListener('input',()=>{q.style.height='auto';q.style.height=Math.min(q.scrollHeight,140)+'px'});
+chips.addEventListener('click',e=>{const c=e.target.closest('.chip');if(c)ask(c.textContent)});
+$('reset').addEventListener('click',()=>{ctl?.abort();hist=[];busy=false;send.disabled=false;log.innerHTML=log.firstElementChild.outerHTML;chips.classList.remove('hide')});
+const strip=s=>s.replace(/[ً-ْٰ]/g,'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي');
+function filter(v){
+  const k=strip(v.trim());let n=0;
+  document.querySelectorAll('#charter section').forEach(s=>{let any=false;s.querySelectorAll('.it').forEach(it=>{const ok=!k||strip(it.textContent).includes(k);it.classList.toggle('hide',!ok);if(ok)any=true;if(ok&&k)n++});s.classList.toggle('hide',!any)});
+  $('none').classList.toggle('hide',!k||n>0);
+}
+$('s').addEventListener('input',e=>filter(e.target.value));
+}
+</script>
+</body>
+</html>
